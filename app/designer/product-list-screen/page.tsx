@@ -2,13 +2,18 @@
 import React, { useState, useEffect } from "react";
 import Header from "../../../components/Header";
 import { Button } from "../../../components/ui/button";
+import {
+  ProductActionModal,
+  SalesTypeModal,
+  DirectSaleModal,
+  AuctionModal,
+  Product,
+  DirectSaleData,
+  AuctionSetupData,
+} from "../../../components/product-modals";
 
-interface Product {
-  id: number;
-  name: string;
-  image: string;
-  status: "available" | "direct-sale" | "auction";
-}
+// ==================== API DATA INTERFACES ====================
+// Interfaces are now imported from components/product-modals/types.ts
 
 // Function to get saleType display text based on status
 const getSaleTypeDisplay = (status: Product["status"]): string => {
@@ -24,73 +29,159 @@ const getSaleTypeDisplay = (status: Product["status"]): string => {
 };
 
 export default function ProductListScreen() {
+  // ==================== API INTEGRATION GUIDE ====================
+  //
+  // ELEMENTS POPULATED FROM API DATA:
+  //
+  // 1. PRODUCT LIST TABLE:
+  //    - products[] array → Full product list with pagination
+  //    - product.id → Unique product identifier
+  //    - product.name → Product display name
+  //    - product.mainImage/images[0] → Product thumbnail
+  //    - product.status → Sale status (draft, available, direct-sale, auction, sold)
+  //    - product.salePrice → Direct sale price (if applicable)
+  //    - product.auctionDetails → Auction info (if applicable)
+  //    - product.createdAt → Product creation date
+  //    - product.designer → Designer information
+  //
+  // 2. DIRECT SALE MODAL:
+  //    - selectedProduct.name → Product name display
+  //    - selectedProduct.mainImage → Product image in modal
+  //    - salePrice input → Price to be sent to API
+  //
+  // 3. AUCTION SETUP MODAL:
+  //    - selectedProduct.name → Product name display
+  //    - selectedProduct.mainImage → Product image in modal
+  //    - startingPrice input → Starting bid amount
+  //    - bidIncrement input → Minimum bid increment
+  //    - startTime input → Auction start time
+  //    - endTime input → Auction end time
+  //
+  // 4. PRODUCT ACTIONS:
+  //    - View → Navigate to product details page
+  //    - Edit → Navigate to product edit page
+  //    - Delete → Remove product (with confirmation)
+  //
+  // API FUNCTIONS TO IMPLEMENT:
+  // const [products, setProducts] = useState<Product[]>([]);
+  // const [loading, setLoading] = useState(true);
+  // const [error, setError] = useState<string | null>(null);
+  // const [pagination, setPagination] = useState({ page: 1, totalPages: 1, totalCount: 0 });
+  //
+  // - fetchProducts(page?: number, filters?: object): Promise<ProductListApiResponse>
+  // - createDirectSale(data: DirectSaleData): Promise<ProductActionApiResponse>
+  // - createAuction(data: AuctionSetupData): Promise<ProductActionApiResponse>
+  // - updateProduct(id: string, data: Partial<Product>): Promise<ProductActionApiResponse>
+  // - deleteProduct(id: string): Promise<{ success: boolean; message?: string }>
+  // - uploadProductImage(file: File): Promise<{ success: boolean; url: string }>
+  //
+  // REAL-TIME UPDATES NEEDED:
+  // - Product status changes (when auctions start/end)
+  // - Auction current prices (live bidding updates)
+  // - New products added by designer
+  // - Product availability changes
+  //
+  // PAGINATION & FILTERING:
+  // - Page-based pagination for large product lists
+  // - Status filtering (all, available, on-sale, in-auction)
+  // - Date range filtering (created date)
+  // - Search by product name
+  // ============================================================
+
+  // Mock data with API-ready structure
   const [products] = useState<Product[]>([
     {
-      id: 1,
+      id: "prod_001",
       name: "Giày thể thao",
-      image: "/images/shoe.png",
+      description: "Giày thể thao nam chất lượng cao",
+      category: "Giày dép",
+      material: "Da thật, cao su",
+      images: ["/images/shoe.png", "/images/shoe_2.png"],
+      mainImage: "/images/shoe.png",
+      designerId: "designer_001",
+      designer: {
+        id: "designer_001",
+        name: "Nhà thiết kế A",
+        email: "designer_a@example.com",
+      },
       status: "available",
+      createdAt: "2024-01-15T10:00:00Z",
+      updatedAt: "2024-01-15T10:00:00Z",
     },
     {
-      id: 2,
+      id: "prod_002",
       name: "Giày thể thao 2",
-      image: "/images/shoe2.png",
+      description: "Mẫu giày thể thao phong cách",
+      category: "Giày dép",
+      material: "Vải, cao su",
+      images: ["/images/shoe2.png"],
+      mainImage: "/images/shoe2.png",
+      designerId: "designer_001",
+      designer: {
+        id: "designer_001",
+        name: "Nhà thiết kế A",
+        email: "designer_a@example.com",
+      },
       status: "available",
+      createdAt: "2024-01-16T10:00:00Z",
+      updatedAt: "2024-01-16T10:00:00Z",
     },
     {
-      id: 3,
+      id: "prod_003",
       name: "Áo thun Premium",
-      image: "/images/tshirt.png",
+      description: "Áo thun chất lượng cao cấp",
+      category: "Quần áo",
+      material: "Cotton 100%",
+      images: ["/images/tshirt.png"],
+      mainImage: "/images/tshirt.png",
+      designerId: "designer_001",
+      designer: {
+        id: "designer_001",
+        name: "Nhà thiết kế A",
+        email: "designer_a@example.com",
+      },
       status: "direct-sale",
+      salePrice: 250000,
+      createdAt: "2024-01-17T10:00:00Z",
+      updatedAt: "2024-01-17T10:00:00Z",
     },
     {
-      id: 4,
+      id: "prod_004",
       name: "Quần jean cao cấp",
-      image: "/images/jeans.png",
+      description: "Quần jean chất lượng cao",
+      category: "Quần áo",
+      material: "Denim",
+      images: ["/images/jeans.png"],
+      mainImage: "/images/jeans.png",
+      designerId: "designer_001",
+      designer: {
+        id: "designer_001",
+        name: "Nhà thiết kế A",
+        email: "designer_a@example.com",
+      },
       status: "auction",
-    },
-    {
-      id: 5,
-      name: "Túi xách da thật",
-      image: "/images/bag.png",
-      status: "direct-sale",
-    },
-    {
-      id: 6,
-      name: "Đồng hồ thông minh",
-      image: "/images/watch.png",
-      status: "auction",
-    },
-    {
-      id: 7,
-      name: "Áo khoác hoodie",
-      image: "/images/hoodie.png",
-      status: "available",
-    },
-    {
-      id: 8,
-      name: "Giày boots da",
-      image: "/images/boots.png",
-      status: "direct-sale",
+      auctionDetails: {
+        startingPrice: 500000,
+        bidIncrement: 50000,
+        startTime: "2024-01-20T09:00:00Z",
+        endTime: "2024-01-22T18:00:00Z",
+        currentPrice: 650000,
+        totalBids: 12,
+        isActive: true,
+      },
+      createdAt: "2024-01-18T10:00:00Z",
+      updatedAt: "2024-01-18T10:00:00Z",
     },
   ]);
 
-  const [selectedProduct, setSelectedProduct] = useState<number | null>(null);
+  const [selectedProduct, setSelectedProduct] = useState<string | null>(null);
   const [showActionModal, setShowActionModal] = useState(false);
   const [showSalesTypeModal, setShowSalesTypeModal] = useState(false);
   const [selectedProductForSales, setSelectedProductForSales] = useState<
-    number | null
-  >(null);
-  const [selectedSalesType, setSelectedSalesType] = useState<
-    "direct" | "auction" | null
+    string | null
   >(null);
   const [showDirectSaleModal, setShowDirectSaleModal] = useState(false);
-  const [salePrice, setSalePrice] = useState("");
   const [showAuctionModal, setShowAuctionModal] = useState(false);
-  const [startingPrice, setStartingPrice] = useState("");
-  const [bidIncrement, setBidIncrement] = useState("");
-  const [startTime, setStartTime] = useState("");
-  const [endTime, setEndTime] = useState("");
 
   // Handle Escape key to close modal
   useEffect(() => {
@@ -122,7 +213,7 @@ export default function ProductListScreen() {
     window.location.href = "/designer/product-upload";
   };
 
-  const handleViewDetails = (productId: number) => {
+  const handleViewDetails = (productId: string) => {
     setSelectedProduct(productId);
     setShowActionModal(true);
   };
@@ -137,42 +228,47 @@ export default function ProductListScreen() {
     if (clearSelection) {
       setSelectedProductForSales(null);
     }
-    setSelectedSalesType(null);
   };
 
   const closeDirectSaleModal = () => {
     setShowDirectSaleModal(false);
-    setSalePrice("");
   };
 
   const closeAuctionModal = () => {
     setShowAuctionModal(false);
-    setStartingPrice("");
-    setBidIncrement("");
-    setStartTime("");
-    setEndTime("");
   };
 
-  const handleSalesTypeClick = (productId: number) => {
+  const handleSalesTypeClick = (productId: string) => {
     setSelectedProductForSales(productId);
-    setSelectedSalesType(null);
     setShowSalesTypeModal(true);
-  };
-
-  const handleSalesTypeSelect = (salesType: "direct" | "auction") => {
-    setSelectedSalesType(salesType);
   };
 
   const handleAction = (action: "view" | "edit" | "delete") => {
     console.log(`${action} product:`, selectedProduct);
     closeModal();
-    // Add your action logic here
+
     if (action === "view") {
-      // Navigate to view product
+      // TODO: Navigate to product details page
+      // window.location.href = `/designer/products/${selectedProduct}/view`;
+      // OR: router.push(`/designer/products/${selectedProduct}/view`);
     } else if (action === "edit") {
-      // Navigate to edit product
+      // TODO: Navigate to product edit page
+      // window.location.href = `/designer/products/${selectedProduct}/edit`;
+      // OR: router.push(`/designer/products/${selectedProduct}/edit`);
     } else if (action === "delete") {
-      // Delete product logic
+      // TODO: Call delete product API
+      // if (confirm('Bạn có chắc chắn muốn xóa sản phẩm này?')) {
+      //   deleteProduct(selectedProduct!)
+      //     .then(() => {
+      //       // Refresh product list
+      //       fetchProducts();
+      //       // Show success message
+      //     })
+      //     .catch(error => {
+      //       // Show error message
+      //       console.error('Delete failed:', error);
+      //     });
+      // }
     }
   };
 
@@ -289,39 +385,11 @@ export default function ProductListScreen() {
                     </button>
 
                     {/* Dropdown Modal */}
-                    {showActionModal && selectedProduct === product.id && (
-                      <div
-                        className="absolute top-0 left-1/2 translate-x-8 bg-white rounded-lg shadow-xl border border-gray-300 w-20 text-xs"
-                        style={{ zIndex: 1000 }}
-                      >
-                        <div className="divide-y divide-gray-200">
-                          <button
-                            onClick={() => handleAction("view")}
-                            className="w-full px-4 py-3 text-left hover:bg-gray-50 transition-colors duration-200 focus:outline-none focus:bg-gray-50 text-sm"
-                          >
-                            <span className="text-gray-800 font-medium">
-                              Xem
-                            </span>
-                          </button>
-                          <button
-                            onClick={() => handleAction("edit")}
-                            className="w-full px-4 py-3 text-left hover:bg-gray-50 transition-colors duration-200 focus:outline-none focus:bg-gray-50 text-sm"
-                          >
-                            <span className="text-gray-800 font-medium">
-                              Sửa
-                            </span>
-                          </button>
-                          <button
-                            onClick={() => handleAction("delete")}
-                            className="w-full px-4 py-3 text-left hover:bg-gray-50 transition-colors duration-200 focus:outline-none focus:bg-gray-50 text-sm"
-                          >
-                            <span className="text-gray-800 font-medium">
-                              Xoá
-                            </span>
-                          </button>
-                        </div>
-                      </div>
-                    )}
+                    <ProductActionModal
+                      isOpen={showActionModal && selectedProduct === product.id}
+                      onClose={closeModal}
+                      onAction={handleAction}
+                    />
                   </div>
                 </div>
               ))}
@@ -365,329 +433,110 @@ export default function ProductListScreen() {
       </div>
 
       {/* Sales Type Selection Modal */}
-      {showSalesTypeModal && (
-        <div
-          className="fixed inset-0 flex items-center justify-center z-50"
-          onClick={() => closeSalesTypeModal(true)}
-        >
-          <div
-            className="bg-white rounded-lg shadow-lg p-6 max-w-md w-full mx-4"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <h2 className="text-xl font-semibold mb-6 text-center">
-              Chọn hình thức bán
-            </h2>
-
-            <div className="space-y-3 mb-6">
-              <button
-                onClick={() => handleSalesTypeSelect("direct")}
-                className={`w-full p-4 rounded-2xl border-2 text-left font-medium transition-all ${
-                  selectedSalesType === "direct"
-                    ? "border-blue-600 bg-blue-50 text-blue-600"
-                    : "border-gray-300 bg-white text-gray-700 hover:border-gray-400"
-                }`}
-              >
-                Bán trực tiếp
-              </button>
-
-              <button
-                onClick={() => handleSalesTypeSelect("auction")}
-                className={`w-full p-4 rounded-2xl border-2 text-left font-medium transition-all ${
-                  selectedSalesType === "auction"
-                    ? "border-blue-600 bg-blue-50 text-blue-600"
-                    : "border-gray-300 bg-white text-gray-700 hover:border-gray-400"
-                }`}
-              >
-                Bán đấu giá
-              </button>
-            </div>
-
-            <div className="flex space-x-4">
-              <Button
-                onClick={() => closeSalesTypeModal(true)}
-                className="flex-1 py-3 px-6 bg-red-500 text-white rounded-full font-medium hover:bg-red-600 transition-colors"
-              >
-                Hủy
-              </Button>
-              <Button
-                onClick={() => {
-                  if (selectedSalesType) {
-                    if (selectedSalesType === "direct") {
-                      // Open direct sale modal for price input
-                      closeSalesTypeModal(false);
-                      setShowDirectSaleModal(true);
-                    } else if (selectedSalesType === "auction") {
-                      // Open auction modal for auction setup
-                      closeSalesTypeModal(false);
-                      setShowAuctionModal(true);
-                    }
-                  }
-                }}
-                className="flex-1 py-3 px-6 text-white rounded-full font-medium transition-colors"
-                style={{ backgroundColor: "#000080" }}
-                disabled={!selectedSalesType}
-              >
-                Xác nhận
-              </Button>
-            </div>
-          </div>
-        </div>
-      )}
+      <SalesTypeModal
+        isOpen={showSalesTypeModal}
+        onClose={() => closeSalesTypeModal(true)}
+        onConfirm={(salesType) => {
+          if (salesType === "direct") {
+            closeSalesTypeModal(false);
+            setShowDirectSaleModal(true);
+          } else if (salesType === "auction") {
+            closeSalesTypeModal(false);
+            setShowAuctionModal(true);
+          }
+        }}
+      />
 
       {/* Direct Sale Modal */}
-      {showDirectSaleModal && (
-        <div
-          className="fixed inset-0 flex items-center justify-center z-60"
-          onClick={closeDirectSaleModal}
-        >
-          <div
-            className="bg-white rounded-lg shadow-lg p-6 max-w-md w-full mx-4"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <h2 className="text-xl font-semibold mb-6 text-center">
-              Bán trực tiếp
-            </h2>
+      <DirectSaleModal
+        isOpen={showDirectSaleModal}
+        product={products.find((p) => p.id === selectedProductForSales) || null}
+        onClose={closeDirectSaleModal}
+        onConfirm={(price) => {
+          console.log(
+            `Direct sale price set: ${price} VND for product:`,
+            selectedProductForSales
+          );
 
-            {/* Product Display */}
-            {(() => {
-              const selectedProduct = products.find(
-                (p) => p.id === selectedProductForSales
-              );
+          // TODO: Call API to set up direct sale
+          // const directSaleData: DirectSaleData = {
+          //   productId: selectedProductForSales!,
+          //   price: parseFloat(price.replace(/,/g, '')),
+          //   currency: 'VND'
+          // };
+          //
+          // createDirectSale(directSaleData)
+          //   .then(response => {
+          //     if (response.success) {
+          //       // Update local product list
+          //       setProducts(prev => prev.map(p =>
+          //         p.id === selectedProductForSales
+          //           ? { ...p, status: 'direct-sale', salePrice: directSaleData.price }
+          //           : p
+          //       ));
+          //       // Show success message
+          //       closeDirectSaleModal();
+          //     }
+          //   })
+          //   .catch(error => {
+          //     // Show error message
+          //     console.error('Direct sale setup failed:', error);
+          //   });
 
-              if (!selectedProduct) {
-                return (
-                  <div className="flex flex-col items-center mb-8">
-                    <div className="w-48 h-48 bg-gray-200 rounded-3xl border-8 border-black mb-6 flex items-center justify-center">
-                      <span className="text-gray-500">No Product</span>
-                    </div>
-                    <h3 className="text-2xl font-bold text-gray-900">
-                      Unknown Product
-                    </h3>
-                  </div>
-                );
-              }
-
-              return (
-                <div className="flex flex-col items-center mb-8">
-                  {/* Product Image Container */}
-                  <div className="w-48 h-48 bg-white rounded-3xl border-8 border-black mb-6 flex items-center justify-center overflow-hidden shadow-lg">
-                    <img
-                      src={selectedProduct.image}
-                      alt={selectedProduct.name}
-                      className="w-40 h-40 object-contain"
-                      onError={(e) => {
-                        e.currentTarget.src =
-                          "https://via.placeholder.com/200x200/f0f0f0/999999?text=" +
-                          encodeURIComponent(selectedProduct.name);
-                      }}
-                    />
-                  </div>
-
-                  {/* Product Name */}
-                  <h3 className="text-2xl font-bold text-gray-900">
-                    {selectedProduct.name}
-                  </h3>
-                </div>
-              );
-            })()}
-
-            {/* Price Input */}
-            <div className="mb-6">
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Nhập giá bán
-              </label>
-              <input
-                type="text"
-                value={salePrice}
-                onChange={(e) => setSalePrice(e.target.value)}
-                placeholder="VND"
-                className="w-full px-4 py-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              />
-            </div>
-
-            {/* Action Buttons */}
-            <div className="flex space-x-4">
-              <button
-                onClick={closeDirectSaleModal}
-                className="flex-1 py-3 px-6 bg-red-500 text-white rounded-full font-medium hover:bg-red-600 transition-colors cursor-pointer"
-              >
-                Hủy
-              </button>
-              <button
-                onClick={() => {
-                  if (salePrice.trim()) {
-                    console.log(
-                      `Direct sale price set: ${salePrice} VND for product:`,
-                      selectedProductForSales
-                    );
-                    // Here you would update the product with the price and status
-                    closeDirectSaleModal();
-                  }
-                }}
-                className="flex-1 py-3 px-6 text-white rounded-full font-medium transition-colors cursor-pointer"
-                style={{ backgroundColor: "#000080" }}
-                disabled={!salePrice.trim()}
-              >
-                Xác nhận
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+          closeDirectSaleModal();
+        }}
+      />
 
       {/* Auction Modal */}
-      {showAuctionModal && (
-        <div
-          className="fixed inset-0 flex items-center justify-center z-60"
-          onClick={closeAuctionModal}
-        >
-          <div
-            className="bg-white rounded-lg shadow-lg p-6 w-[500px] mx-4"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <h2 className="text-xl font-semibold mb-6 text-center">
-              Bán đấu giá
-            </h2>
+      <AuctionModal
+        isOpen={showAuctionModal}
+        product={products.find((p) => p.id === selectedProductForSales) || null}
+        onClose={closeAuctionModal}
+        onConfirm={({ startingPrice, bidIncrement, startTime, endTime }) => {
+          console.log(
+            `Auction setup - Starting Price: ${startingPrice} VND, Bid Increment: ${bidIncrement} VND, Start: ${startTime}, End: ${endTime} for product:`,
+            selectedProductForSales
+          );
 
-            {/* Product Section - Centered */}
-            {(() => {
-              const selectedProduct = products.find(
-                (p) => p.id === selectedProductForSales
-              );
+          // TODO: Call API to set up auction
+          // const auctionData: AuctionSetupData = {
+          //   productId: selectedProductForSales!,
+          //   startingPrice: parseFloat(startingPrice.replace(/,/g, '')),
+          //   bidIncrement: parseFloat(bidIncrement.replace(/,/g, '')),
+          //   startTime: `${startTime}:00`, // Convert to full datetime
+          //   endTime: `${endTime}:00`     // Convert to full datetime
+          // };
+          //
+          // createAuction(auctionData)
+          //   .then(response => {
+          //     if (response.success) {
+          //       // Update local product list
+          //       setProducts(prev => prev.map(p =>
+          //         p.id === selectedProductForSales
+          //           ? {
+          //               ...p,
+          //               status: 'auction',
+          //               auctionDetails: {
+          //                 ...auctionData,
+          //                 currentPrice: auctionData.startingPrice,
+          //                 totalBids: 0,
+          //                 isActive: false // Will be activated at startTime
+          //               }
+          //             }
+          //           : p
+          //       ));
+          //       // Show success message
+          //       closeAuctionModal();
+          //     }
+          //   })
+          //   .catch(error => {
+          //     // Show error message
+          //     console.error('Auction setup failed:', error);
+          //   });
 
-              if (!selectedProduct) {
-                return (
-                  <div className="flex flex-col items-center mb-6">
-                    <div className="w-32 h-32 bg-gray-200 rounded-2xl border-4 border-black mb-3 flex items-center justify-center">
-                      <span className="text-gray-500 text-xs">No Product</span>
-                    </div>
-                    <h3 className="text-lg font-bold text-gray-900 text-center">
-                      Unknown Product
-                    </h3>
-                  </div>
-                );
-              }
-
-              return (
-                <div className="flex flex-col items-center mb-6">
-                  {/* Product Image Container */}
-                  <div className="w-32 h-32 bg-white rounded-2xl border-4 border-black flex items-center justify-center overflow-hidden shadow-md mb-3">
-                    <img
-                      src={selectedProduct.image}
-                      alt={selectedProduct.name}
-                      className="w-24 h-24 object-contain"
-                      onError={(e) => {
-                        const target = e.target as HTMLImageElement;
-                        target.src =
-                          "https://via.placeholder.com/120x120/f0f0f0/999999?text=No+Image";
-                      }}
-                    />
-                  </div>
-
-                  {/* Product Name */}
-                  <h3 className="text-lg font-bold text-gray-900 text-center">
-                    {selectedProduct.name}
-                  </h3>
-                </div>
-              );
-            })()}
-
-            {/* Form Fields */}
-            <div className="space-y-4">
-              {/* Pricing Fields - Side by side */}
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Giá khởi điểm
-                  </label>
-                  <input
-                    type="text"
-                    value={startingPrice}
-                    onChange={(e) => setStartingPrice(e.target.value)}
-                    placeholder="VND"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Bước giá
-                  </label>
-                  <input
-                    type="text"
-                    value={bidIncrement}
-                    onChange={(e) => setBidIncrement(e.target.value)}
-                    placeholder="VND"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  />
-                </div>
-              </div>
-
-              {/* Time Fields - Side by side */}
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Thời gian bắt đầu
-                  </label>
-                  <input
-                    type="time"
-                    value={startTime}
-                    onChange={(e) => setStartTime(e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Thời gian kết thúc
-                  </label>
-                  <input
-                    type="time"
-                    value={endTime}
-                    onChange={(e) => setEndTime(e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* Action Buttons */}
-            <div className="flex space-x-3 mt-6">
-              <button
-                onClick={closeAuctionModal}
-                className="flex-1 py-2.5 px-4 bg-red-500 text-white rounded-lg font-medium hover:bg-red-600 transition-colors cursor-pointer text-sm"
-              >
-                Hủy
-              </button>
-              <button
-                onClick={() => {
-                  if (
-                    startingPrice.trim() &&
-                    bidIncrement.trim() &&
-                    startTime &&
-                    endTime
-                  ) {
-                    console.log(
-                      `Auction setup - Starting Price: ${startingPrice} VND, Bid Increment: ${bidIncrement} VND, Start: ${startTime}, End: ${endTime} for product:`,
-                      selectedProductForSales
-                    );
-                    // Here you would update the product with auction details
-                    closeAuctionModal();
-                  }
-                }}
-                className="flex-1 py-2.5 px-4 text-white rounded-lg font-medium transition-colors cursor-pointer text-sm"
-                style={{ backgroundColor: "#000080" }}
-                disabled={
-                  !startingPrice.trim() ||
-                  !bidIncrement.trim() ||
-                  !startTime ||
-                  !endTime
-                }
-              >
-                Xác nhận
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+          closeAuctionModal();
+        }}
+      />
     </div>
   );
 }
