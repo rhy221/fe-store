@@ -38,6 +38,7 @@ export default function ProductUpload() {
 
   function submitForm(e: React.FormEvent) {
     e.preventDefault();
+
     // validate minimal
     if (!form.tenMau) return alert("Vui lòng nhập tên mẫu");
     if (!form.file) return alert("Vui lòng chọn ảnh");
@@ -48,8 +49,6 @@ export default function ProductUpload() {
     fd.append("moTa", form.moTa);
     fd.append("theLoai", form.theLoai);
     if (form.file) fd.append("file", form.file);
-
-    alert("Form sẵn sàng gửi (demo).");
   }
 
   return (
