@@ -216,7 +216,7 @@ showAlert(
   };
 
   return (
-    <div className="w-full max-w-5xl p-6 space-y-8 bg-white">
+    <div className="w-full mx-auto max-w-5xl p-6 space-y-8 bg-white">
       {/* Custom Alert Dialog */}
       <AlertDialog open={alertState.isOpen} onOpenChange={closeAlert}>
         <AlertDialogContent className="w-[544px] h-[345px] rounded-[45px]">
