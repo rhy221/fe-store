@@ -111,7 +111,7 @@ export default function TopThreeRankings({
       
       {/* Top 3 Templates Section */}
       <div className="mb-2 pl-3">
-        <h2 className="text-lg font-normal mb-4">
+        <h2 className="text-2xl font-normal mb-4">
           Top 3 mẫu thiết kế được xem nhiều nhất
         </h2>
         <div className="flex flex-wrap gap-4">
@@ -130,10 +130,10 @@ export default function TopThreeRankings({
 
       {/* Top 3 Designers Section */}
       <div className='pl-3 mb-10'>
-        <h2 className="text-lg font-normal text-gray-900 mb-4">
+        <h2 className="text-2xl font-normal mb-4">
           Top 3 nhà thiết kế có doanh thu cao nhất
         </h2>
-        <div className="flex flex-wrap gap-4">
+        <div className="flex flex-wrap gap-7">
           {designers.map((item, index) => (
             <RankingCard
               key={index}
