@@ -70,7 +70,7 @@ export default function UploadBox({
             <button
               type="button"
               onClick={() => fileRef.current?.click()}
-              className="mt-2 text-sm underline cursor-pointer hover:text-blue-600 transition-colors duration-200"
+              className="mt-2 text-sm cursor-pointer hover:text-blue-600 transition-colors duration-200"
             >
               Chọn ảnh
             </button>

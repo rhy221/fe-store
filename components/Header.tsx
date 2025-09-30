@@ -3,9 +3,9 @@ import React from "react";
 
 export default function Header() {
   return (
-    <header className="w-full border-b">
+    <header className="w-full border-b bg-white">
       {/* Top section with logo and username */}
-      <div className="flex items-center justify-between px-6 h-20">
+      <div className="flex items-center justify-between px-6 h-20 bg-white">
         <div className="flex items-center gap-4">
           <div className="flex items-center justify-center">
             {/* Logo placeholder */}
