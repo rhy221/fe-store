@@ -1,15 +1,8 @@
 "use client";
 import React, { useState } from "react";
 
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
+import CustomAlertDialog from "@/components/Dialog/CustomAlertDialog";
+import SuccessAlertDialog from "@/components/Dialog/CustomSuccessDialog";
 
 // Types
 interface AdminRightsTablesProps {
@@ -40,7 +33,6 @@ interface AdminPermission {
 
 interface AlertState {
   isOpen: boolean;
-  type: "superadmin" | "subadmin-qlad" | "subadmin-full" | null;
   title: string;
   message: string;
 }
@@ -125,23 +117,16 @@ export default function AdminRightsTables({
   permissions: initialPermission = defaultPermissions,
 }: AdminRightsTablesProps) {
   const [permissions, setPermissions] = useState(initialPermission);
-const [alertState, setAlertState] = useState<AlertState>({
+  const [alertState, setAlertState] = useState<AlertState>({
     isOpen: false,
-    type: null,
     title: "",
     message: "",
   });
   const [successAlert, setSuccessAlert] = useState(false);
-  
 
-  const showAlert = (
-    type: AlertState["type"],
-    title: string,
-    message: string
-  ) => {
+  const showAlert = (title: string, message: string) => {
     setAlertState({
       isOpen: true,
-      type,
       title,
       message,
     });
@@ -150,7 +135,6 @@ const [alertState, setAlertState] = useState<AlertState>({
   const closeAlert = () => {
     setAlertState({
       isOpen: false,
-      type: null,
       title: "",
       message: "",
     });
@@ -163,17 +147,16 @@ const [alertState, setAlertState] = useState<AlertState>({
     if (!user) return;
 
     if (user.isSuperAdmin) {
-showAlert(
-        "superadmin",
+      showAlert(
         "Không thể bỏ phân quyền",
         `Tài khoản này là Admin toàn quyền (Super Admin), không thể bỏ bất kỳ phân quyền nào. Muốn thay đổi phân quyền, hãy chỉnh sửa cài đặt mức phân quyền.`
-      );      return;
+      );
+      return;
     }
 
     if (user.isSubAdmin) {
       if (key === "QLAD") {
         showAlert(
-          "subadmin-qlad",
           "Không thể thêm phân quyền",
           `Tài khoản này là Admin không toàn quyền (Sub-Admin), không có đầy đủ phân quyền. Muốn thay đổi phân quyền, hãy chỉnh sửa cài đặt mức phân quyền.`
         );
@@ -190,7 +173,6 @@ showAlert(
 
       if (!current.permissions[key] && currentChecked === total - 1) {
         showAlert(
-          "subadmin-full",
           "Không thể thêm phân quyền",
           `Tài khoản này là Admin không toàn quyền (Sub-Admin), không có đầy đủ phân quyền. Muốn thay đổi phân quyền, hãy chỉnh sửa cài đặt mức phân quyền.`
         );
@@ -218,36 +200,19 @@ showAlert(
   return (
     <div className="w-full mx-auto max-w-5xl p-6 space-y-8 bg-white">
       {/* Custom Alert Dialog */}
-      <AlertDialog open={alertState.isOpen} onOpenChange={closeAlert}>
-        <AlertDialogContent className="w-[544px] h-[345px] rounded-[45px]">
-          <AlertDialogHeader className="flex flex-col items-center">
-            <img src={"/warningIcon.png"} alt="Admin Table" className="w-[50px]" />
-            <AlertDialogTitle className="text-center text-[28px] font-extrabold">
-              {alertState.title}
-            </AlertDialogTitle>
-            <AlertDialogDescription className="text-center whitespace-pre-line text-xl text-black">
-              {alertState.message}
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter className="sm:justify-center">
-            <AlertDialogAction className="text-2xl font-bold bg-[#0057FF] w-[173px] h-[55px] rounded-[45px] hover:bg-blue-700 px-8">
-              Đã hiểu
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+      <CustomAlertDialog
+        isOpen={alertState.isOpen}
+        onClose={closeAlert}
+        title={alertState.title}
+        message={alertState.message}
+      />
 
       {/* Success Alert */}
-      <AlertDialog open={successAlert} onOpenChange={setSuccessAlert}>
-        <AlertDialogContent className="w-[377px] h-[249px] rounded-[45px] flex flex-col">
-          <div className="flex-1 flex flex-col items-center justify-center">
-            <img src={"/successIcon.png"} alt="Admin Table" className="w-[50px] mb-8" />
-            <AlertDialogTitle className="text-center text-2xl font-normal whitespace-nowrap">
-              Thay đổi hệ thống thành công.
-            </AlertDialogTitle>
-          </div>
-        </AlertDialogContent>
-      </AlertDialog>
+      <SuccessAlertDialog
+        isOpen={successAlert}
+        onClose={() => setSuccessAlert(false)}
+        message="Thay đổi hệ thống thành công."
+      />
       {/* Admin Rights Table */}
       <div>
         <h2 className="text-[32px] font-extrabold mb-4 flex items-center gap-2">
