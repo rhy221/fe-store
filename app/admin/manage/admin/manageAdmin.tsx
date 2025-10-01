@@ -244,7 +244,7 @@ export default function AdminAccountManagement({
   });
 
   return (
-    <div className="w-full max-w-6xl mx-auto p-6 space-y-6 bg-gray-50">
+    <div className="w-full max-w-6xl mx-auto p-8 pl-12 space-y-6">
       {/* Header */}
       <div>
         <h1 className="text-[32px] font-extrabold mb-6">
