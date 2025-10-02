@@ -1,6 +1,6 @@
 import * as React from "react"
 
-export default function AdminLayout({ children }: { children: React.ReactNode }) {
+export default function AdminUsersPage({ children }: { children: React.ReactNode }) {
   return (
     <div>
       {children}
