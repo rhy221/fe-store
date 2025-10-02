@@ -2,26 +2,46 @@
 
 import { useState } from "react"
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog"
-import { X } from "lucide-react"
+
+// Design type and data
+type Design = {
+  name: string
+  designer: string
+  description: string
+  category: string
+  status: string
+  datePosted: string
+  image: string
+}
+
+const design: Design = {
+  name: "Footwear Romans Cad",
+  designer: "Nguyễn Văn Tiên",
+  description: "Mẫu giày lấy cảm hứng từ chiến binh La Mã với thiết kế dây đan mạnh mẽ và phong cách cổ điển hiện đại.",
+  category: "Giày",
+  status: "Chia sẻ",
+  datePosted: "15/09/2024",
+  image: "/designImage.png"
+}
 
 export default function WarningDialog() {
   const [open, setOpen] = useState(true)
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="max-w-3xl p-6" showCloseButton={false}>
+      <DialogContent className="max-w-4xl p-6" showCloseButton={false}>
         {/* Header */}
         <div className="flex items-center justify-between">
           <DialogTitle className="text-xl font-bold">
             Cảnh cáo
           </DialogTitle>
 
-          {/* Envelope-style close button */}
+          {/* Close button with X icon image */}
           <button
             onClick={() => setOpen(false)}
             className="flex items-center justify-center w-8 h-6 border rounded-md bg-muted hover:bg-muted/70"
           >
-            <X className="w-4 h-4" />
+            <img src="/xButtonIcon.png" alt="Close" className="w-4 h-4" />
           </button>
         </div>
 
@@ -30,31 +50,22 @@ export default function WarningDialog() {
           {/* Left: Image */}
           <div className="w-60">
             <img
-              src="/shoe.png"
-              alt="Mẫu thiết kế"
+              src={design.image}
+              alt={design.name}
               className="w-full rounded-md border"
             />
           </div>
 
           {/* Right: Info */}
           <div className="flex-1 space-y-2 text-sm leading-relaxed">
-            <p>
-              <span className="font-semibold">Tên mẫu thiết kế</span>{" "}
-              Footwear Romans Cad
-            </p>
-            <p>
-              <span className="font-semibold">Nhà thiết kế</span> Nguyễn Văn Tiên
-            </p>
-            <p>
-              <span className="font-semibold">Mô tả</span> Mẫu giày lấy cảm hứng từ chiến binh La Mã với thiết kế dây đan mạnh mẽ và phong cách cổ điển hiện đại.
-            </p>
-            <p>
-              <span className="font-semibold">Thể loại</span> Giày
-            </p>
-            <p>
-              <span className="font-semibold">Trạng thái</span> Chia sẻ{" "}
-              <span className="font-semibold">Ngày đăng mẫu</span> 15/09/2024
-            </p>
+            <InfoRow label="Tên mẫu thiết kế" value={design.name} />
+            <InfoRow label="Nhà thiết kế" value={design.designer} />
+            <InfoRow label="Mô tả" value={design.description} />
+            <InfoRow label="Thể loại" value={design.category} />
+            <div className="flex gap-8">
+              <InfoRow label="Trạng thái" value={design.status} />
+              <InfoRow label="Ngày đăng mẫu" value={design.datePosted} />
+            </div>
 
             <p className="font-semibold mt-3">Nội dung cảnh cáo</p>
             <textarea
@@ -78,5 +89,14 @@ export default function WarningDialog() {
         </div>
       </DialogContent>
     </Dialog>
+  )
+}
+
+/* --- Components --- */
+function InfoRow({ label, value }: { label: string; value: string }) {
+  return (
+    <p>
+      <span className="font-semibold">{label}:</span> {value}
+    </p>
   )
 }
