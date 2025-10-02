@@ -1,15 +1,54 @@
 "use client"
-import { BarChart3, Home, Layers, LogOut, Settings, UserCog, Users, FileText, DollarSign, ShieldAlert, Shirt } from "lucide-react"
 
+// Designer type and data
+type Designer = {
+  fullName: string
+  gender: string
+  username: string
+  dateOfBirth: string
+  email: string
+  accountCreated: string
+  phoneNumber: string
+  status: string
+  description: string
+  avatar: string
+  stats: {
+    designsPosted: number
+    revenue: string
+    reportedDesigns: number
+    mostAppealingDesign: string
+    followers: number
+  }
+}
+
+const designer: Designer = {
+  fullName: "Nguyễn Văn Tiên",
+  gender: "Nam", 
+  username: "ntktien98@saovang",
+  dateOfBirth: "22/12/1998",
+  email: "ntktien.saovang@gmail.com",
+  accountCreated: "11/08/2024",
+  phoneNumber: "0123456789",
+  status: "Đang hoạt động",
+  description: "Nhà thiết kế thời trang số với phong cách tối giản hiện đại. Yêu thích sự kết hợp giữa công nghệ và nghệ thuật",
+  avatar: "/DesignerAvatar.png",
+  stats: {
+    designsPosted: 13,
+    revenue: "0,89 tỷ VND",
+    reportedDesigns: 0,
+    mostAppealingDesign: "Áo kỹ thuật số Aurora",
+    followers: 125
+  }
+}
 
 export default function AdminDashboard() {
   return (
     <div className="flex flex-col min-h-screen bg-gray-100">
-      {/* Header (match users page) */}
+      {/* Header */}
       <header className="bg-[#F0F7FF] flex items-center justify-between px-8 py-6">
         <div className="flex items-center gap-3">
           <div className="rounded-full bg-white w-12 h-12 flex items-center justify-center">
-            <span className="text-blue-900 font-bold text-lg">HH</span>
+            <img src="/Logo.png" alt="Logo" className="w-12 h-12" />
           </div>
           <h1 className="text-4xl font-extrabold text-black">HHCLOSET</h1>
         </div>
@@ -18,49 +57,49 @@ export default function AdminDashboard() {
         </div>
       </header>
 
-      {/* Content layout (sidebar + main) */}
+      {/* Content layout */}
       <div className="flex flex-1">
-        {/* Sidebar (under header) */}
-         <aside className="w-64 bg-blue-900 text-white p-4 space-y-4">
-                  <nav className="flex flex-col px-2">
+        {/* Sidebar */}
+        <aside className="w-64 bg-blue-900 text-white p-4 space-y-4">
+          <nav className="flex flex-col px-2">
             <button className="w-full flex items-center gap-4 px-4 py-4 rounded-lg hover:bg-[#002a70]">
-              <Home className="w-6 h-6 shrink-0" />
+              <img src="/homeIcon.png" alt="Home" className="w-6 h-6 shrink-0" />
               <span className="text-2xl font-semibold whitespace-nowrap leading-none">Trang chủ</span>
             </button>
             <hr className="-mx-2 my-2 h-px bg-white/50 border-0" />
 
             <button className="w-full flex items-center gap-4 px-4 py-4 rounded-lg hover:bg-[#002a70]">
-              <UserCog className="w-6 h-6 shrink-0" />
+              <img src="/adminManagementIcon.png" alt="Admin Management" className="w-6 h-6 shrink-0" />
               <span className="text-2xl font-semibold whitespace-nowrap leading-none">Quản lý admin</span>
             </button>
             <hr className="-mx-2 my-2 h-px bg-white/50 border-0" />
 
             <button className="w-full flex items-center gap-4 px-4 py-4 rounded-lg hover:bg-[#002a70]">
-              <Users className="w-6 h-6 shrink-0" />
-              <span className="text-2xl font-semibold  leading-none">Quản lý người dùng</span>
+              <img src="/userManagementIcon.png" alt="User Management" className="w-6 h-6 shrink-0" />
+              <span className="text-2xl font-semibold leading-none">Quản lý người dùng</span>
             </button>
             <hr className="-mx-2 my-2 h-px bg-white/50 border-0" />
 
             <button className="w-full flex items-center gap-4 px-4 py-4 rounded-lg hover:bg-[#002a70]">
-              <Layers className="w-6 h-6 shrink-0" />
+              <img src="/styleIcon.png" alt="Style" className="w-6 h-6 shrink-0" />
               <span className="text-2xl font-semibold whitespace-nowrap leading-none">Thể loại</span>
             </button>
             <hr className="-mx-2 my-2 h-px bg-white/50 border-0" />
 
             <button className="w-full flex items-center gap-4 px-4 py-4 rounded-lg hover:bg-[#002a70]">
-              <BarChart3 className="w-6 h-6 shrink-0" />
+              <img src="/reportIcon.png" alt="Report" className="w-6 h-6 shrink-0" />
               <span className="text-2xl font-semibold whitespace-nowrap leading-none">Báo cáo</span>
             </button>
             <hr className="-mx-2 my-2 h-px bg-white/50 border-0" />
 
             <button className="w-full flex items-center gap-4 px-4 py-4 rounded-lg hover:bg-[#002a70]">
-              <Settings className="w-6 h-6 shrink-0" />
+              <img src="/settingIcon.png" alt="Settings" className="w-6 h-6 shrink-0" />
               <span className="text-2xl font-semibold whitespace-nowrap leading-none">Hệ thống</span>
             </button>
             <hr className="-mx-2 my-2 h-px bg-white/50 border-0" />
 
             <button className="w-full flex items-center gap-4 px-4 py-4 rounded-lg hover:bg-[#002a70] mt-2">
-              <LogOut className="w-6 h-6 shrink-0" />
+              <img src="/logoutIcon.png" alt="Logout" className="w-6 h-6 shrink-0" />
               <span className="text-2xl font-semibold whitespace-nowrap leading-none">Đăng xuất</span>
             </button>
           </nav>
@@ -70,37 +109,36 @@ export default function AdminDashboard() {
         <main className="flex-1 bg-white p-6 overflow-y-auto text-lg">
           {/* Profile */}
           <div className="flex gap-6 items-center mb-6">
-            <img
-              src="/avatar.png"
-              alt="Avatar"
-              className="w-48 h-48 rounded-full border"
-            />
+            <div className="flex flex-col items-center">
+              <img
+                src={designer.avatar}
+                alt="Avatar"
+                className="w-48 h-48 rounded-full border mb-3"
+              />
+              <h2 className="text-2xl font-bold text-black">NHÀ THIẾT KẾ</h2>
+            </div>
             <div className="grid grid-cols-2 gap-x-12 gap-y-2">
-              <InfoRow label="Họ và tên đầy đủ" value="Nguyễn Văn Tiên" />
-              <InfoRow label="Giới tính" value="Nam" />
-              <InfoRow label="Tên đăng nhập" value="ntktien98@saovang" />
-              <InfoRow label="Ngày sinh" value="22/12/1998" />
-              <InfoRow label="Địa chỉ email" value="ntktien.saovang@gmail.com" />
-              <InfoRow label="Ngày tạo tài khoản" value="11/08/2024" />
-              <InfoRow label="Số điện thoại" value="0123456789" />
-              <InfoRow label="Trạng thái" value="Đang hoạt động" />
+              <InfoRow label="Họ và tên đầy đủ" value={designer.fullName} />
+              <InfoRow label="Giới tính" value={designer.gender} />
+              <InfoRow label="Tên đăng nhập" value={designer.username} />
+              <InfoRow label="Ngày sinh" value={designer.dateOfBirth} />
+              <InfoRow label="Địa chỉ email" value={designer.email} />
+              <InfoRow label="Ngày tạo tài khoản" value={designer.accountCreated} />
+              <InfoRow label="Số điện thoại" value={designer.phoneNumber} />
+              <InfoRow label="Trạng thái" value={designer.status} />
               <div className="col-span-2">
-                <InfoRow
-                  label="Mô tả"
-                  value="Nhà thiết kế thời trang số với phong cách tối giản hiện đại. Yêu thích sự kết hợp giữa công nghệ và nghệ thuật"
-                />
+                <InfoRow label="Mô tả" value={designer.description} />
               </div>
             </div>
           </div>
 
           {/* Stat Cards */}
-          {/* <<< FIX: responsive grid so items flow naturally and left-align on second row >>> */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6 text-white">
-            <StatCard color="bg-teal-600" Icon={FileText} label="Số mẫu đã đăng" value="13" />
-            <StatCard color="bg-pink-600" Icon={DollarSign} label="Doanh thu" value="0,89 tỷ VND" />
-            <StatCard color="bg-red-600" Icon={ShieldAlert} label="Số mẫu bị báo cáo" value="0" />
-            <StatCard color="bg-blue-600" Icon={Shirt} label="Mẫu thu hút nhất" value="Áo kỹ thuật số Aurora" />
-            <StatCard color="bg-gray-700" Icon={Users} label="Số người theo dõi" value="125" />
+            <StatCard color="bg-teal-600" iconSrc="/numberOfDesignPostedIcon.png" label="Số mẫu đã đăng" value={designer.stats.designsPosted.toString()} />
+            <StatCard color="bg-pink-600" iconSrc="/revenueIcon.png" label="Doanh thu" value={designer.stats.revenue} />
+            <StatCard color="bg-red-600" iconSrc="/numberOfWarningIcon.png" label="Số mẫu bị báo cáo" value={designer.stats.reportedDesigns.toString()} />
+            <StatCard color="bg-blue-600" iconSrc="/mostAppealDesignIcon.png" label="Mẫu thu hút nhất" value={designer.stats.mostAppealingDesign} />
+            <StatCard color="bg-gray-700" iconSrc="/numberOfFollowerIcon.png" label="Số người theo dõi" value={designer.stats.followers.toString()} />
           </div>
 
           {/* Search + Filters */}
@@ -108,7 +146,7 @@ export default function AdminDashboard() {
             <div className="flex gap-2 mb-2">
               <input
                 placeholder="Nhập nội dung tìm kiếm"
-                 className="flex-1 rounded-full px-4 py-2 border bg-gray-100 text-lg"
+                className="flex-1 rounded-full px-4 py-2 border bg-gray-100 text-lg"
               />
               <button className="px-4 py-2 bg-green-500 rounded-full text-white font-semibold">
                 Tìm kiếm
@@ -119,7 +157,7 @@ export default function AdminDashboard() {
                 (filter) => (
                   <button
                     key={filter}
-                   className="px-4 py-2 bg-gray-200 rounded-full hover:bg-gray-300 text-lg"
+                    className="px-4 py-2 bg-gray-200 rounded-full hover:bg-gray-300 text-lg"
                   >
                     {filter}
                   </button>
@@ -131,12 +169,12 @@ export default function AdminDashboard() {
           {/* Design list */}
           <div className="grid grid-cols-3 gap-6">
             <DesignCard
-              image="/shoe.png"
+              image="/designImage.png"
               title="Footwear Romans Cad"
               status="CHIA SẺ"
             />
             <DesignCard
-              image="/bag.png"
+              image="/designImage2.png"
               title="Túi xách Flower"
               status="ĐANG ĐẤU GIÁ"
             />
@@ -148,15 +186,6 @@ export default function AdminDashboard() {
 }
 
 /* --- Components --- */
-
-function SidebarItem({ label }: { label: string }) {
-  return (
-    <button className="flex items-center w-full px-3 py-2 rounded-md hover:bg-blue-800">
-      <span>{label}</span>
-    </button>
-  )
-}
-
 function InfoRow({ label, value }: { label: string; value: string }) {
   return (
     <p className="leading-snug">
@@ -168,20 +197,20 @@ function InfoRow({ label, value }: { label: string; value: string }) {
 
 function StatCard({
   color,
-  Icon,
+  iconSrc,
   label,
   value,
 }: {
   color: string
-  Icon: React.ComponentType<{ className?: string }>     
+  iconSrc: string
   label: string
   value: string
 }) {
-return (
- <div
+  return (
+    <div
       className={`${color} rounded-full flex items-center gap-4 px-5 py-4 min-h-[92px] h-full min-w-0 shadow-md`}
     >
-      <Icon className="w-7 h-7 shrink-0" />
+      <img src={iconSrc} alt={label} className="w-7 h-7 shrink-0" />
       <span className="flex-1 font-semibold leading-tight whitespace-nowrap overflow-hidden text-ellipsis">
         {label}
       </span>

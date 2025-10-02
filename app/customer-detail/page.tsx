@@ -52,7 +52,7 @@ export default function CustomerDashboard() {
       <header className="bg-[#F0F7FF] flex items-center justify-between px-8 py-6">
         <div className="flex items-center gap-3">
           <div className="rounded-full bg-white w-12 h-12 flex items-center justify-center">
-            <img src="/Logo.png" alt="Logo" className="w-8 h-8" />
+            <img src="/Logo.png" alt="Logo" className="w-12 h-12" />
           </div>
           <h1 className="text-4xl font-extrabold text-black">HHCLOSET</h1>
         </div>
