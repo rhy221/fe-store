@@ -2,7 +2,6 @@
 
 import { useState } from "react"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
-import { X } from "lucide-react"
 
 export default function DesignDetailDialog() {
   const [open, setOpen] = useState(true)
@@ -16,12 +15,12 @@ export default function DesignDetailDialog() {
             Xem chi tiết mẫu thiết kế
           </DialogTitle>
 
-          {/* Envelope-style close button */}
+          {/* Close button with X icon image */}
           <button
             onClick={() => setOpen(false)}
             className="flex items-center justify-center w-8 h-6 border rounded-md bg-muted hover:bg-muted/70"
           >
-            <X className="w-4 h-4 text-black" />
+            <img src="/xButtonIcon.png" alt="Close" className="w-4 h-4" />
           </button>
         </div>
 
@@ -30,7 +29,7 @@ export default function DesignDetailDialog() {
           {/* Left: Image */}
           <div className="w-60">
             <img
-              src="/shoe.png"
+              src="/designImage.png"
               alt="Mẫu thiết kế"
               className="w-full rounded-md border"
             />
@@ -44,10 +43,8 @@ export default function DesignDetailDialog() {
               <span className="font-semibold">Mô tả</span> Mẫu giày lấy cảm hứng từ chiến binh La Mã với thiết kế dây đan mạnh mẽ và phong cách cổ điển hiện đại.
             </p>
             <p><span className="font-semibold">Thể loại</span> Giày</p>
-            <p>
-              <span className="font-semibold">Trạng thái</span> Chia sẻ{" "}
-              <span className="font-semibold">Ngày đăng mẫu</span> 15/09/2024
-            </p>
+            <p><span className="font-semibold">Trạng thái</span> Chia sẻ</p>
+            <p><span className="font-semibold">Ngày đăng mẫu</span> 15/09/2024</p>
 
             <h4 className="mt-3 font-semibold">Thông tin bán hàng</h4>
             <p><span className="font-semibold">Giá bán trực tiếp:</span> X</p>
