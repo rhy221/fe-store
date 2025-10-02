@@ -66,18 +66,11 @@ export default function WarningDialog() {
               <InfoRow label="Trạng thái" value={design.status} />
               <InfoRow label="Ngày đăng mẫu" value={design.datePosted} />
             </div>
-
-            <p className="font-semibold mt-3">Nội dung cảnh cáo</p>
             <textarea
-              rows={2}
-              className="w-full border-0 border-b border-black resize-none focus:outline-none focus:ring-0"
-              placeholder=""
-            />
-            <textarea
-              rows={2}
-              className="w-full border-0 border-b border-black resize-none focus:outline-none focus:ring-0"
-              placeholder=""
-            />
+              rows={3}
+              className="w-full border border-gray-300 rounded-md p-2 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Nhập nội dung cảnh cáo..."
+          />
           </div>
         </div>
 
