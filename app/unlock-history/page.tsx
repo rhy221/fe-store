@@ -1,8 +1,52 @@
-// app/unlock-history/page.tsx
 "use client";
 
 import React, { useState } from "react";
-import { X } from "lucide-react";
+
+// User type and data
+type User = {
+  fullName: string
+  role: string
+  email: string
+  phone: string
+  status: string
+  lockDate: string
+  lockReason: string
+  appealReason: string
+  processingHistory: Array<{
+    id: number
+    processor: string
+    processDate: string
+    action: string
+    note: string
+  }>
+}
+
+const user: User = {
+  fullName: "Trịnh Mai Cường",
+  role: "Nhà thiết kế",
+  email: "maicuong123@gmail.com", 
+  phone: "0123456789",
+  status: "Đang bị khoá",
+  lockDate: "10/07/2025",
+  lockReason: "Tài khoản bị khóa do đăng mẫu thiết kế bị báo cáo vi phạm bản quyền quá 3 lần trong vòng 7 ngày.",
+  appealReason: "Tài khoản bị khoá nhầm",
+  processingHistory: [
+    {
+      id: 1,
+      processor: "Nguyễn Thị Bình",
+      processDate: "15/07/2025",
+      action: "Từ chối",
+      note: "Vi phạm 1 lần trước đó, chưa gỡ mẫu vi phạm."
+    },
+    {
+      id: 2,
+      processor: "Nguyễn Văn An", 
+      processDate: "24/07/2025",
+      action: "Từ chối",
+      note: "Đề nghị khoá vĩnh viễn."
+    }
+  ]
+}
 
 export default function UnlockHistoryModalPage() {
   const [open, setOpen] = useState(true);
@@ -25,51 +69,26 @@ export default function UnlockHistoryModalPage() {
             <button
               onClick={() => setOpen(false)}
               aria-label="Đóng"
-              className="absolute right-0 top-0 inline-flex items-center justify-center rounded-full bg-black text-white w-8 h-8"
+              className="absolute right-0 top-0 inline-flex items-center justify-center w-8 h-8 hover:bg-gray-100 rounded"
             >
-              <X className="w-5 h-5" />
+              <img src="/xButtonIcon.png" alt="Close" className="w-5 h-5" />
             </button>
           </div>
 
           {/* Two column info */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-12 mt-6 text-slate-900">
-            <div>
-              <p className="font-semibold">Họ và tên đầy đủ</p>
-              <p className="mt-1">Trịnh Mai Cường</p>
-            </div>
-            <div>
-              <p className="font-semibold">Vai trò</p>
-              <p className="mt-1">Nhà thiết kế</p>
-            </div>
-
-            <div>
-              <p className="font-semibold">Địa chỉ email</p>
-              <p className="mt-1">maicuong123@gmail.com</p>
-            </div>
-            <div>
-              <p className="font-semibold">SĐT</p>
-              <p className="mt-1">0123456789</p>
-            </div>
-
-            <div>
-              <p className="font-semibold">Trạng thái</p>
-              <p className="mt-1">Đang bị khoá</p>
-            </div>
-            <div>
-              <p className="font-semibold">Ngày khoá</p>
-              <p className="mt-1">10/07/2025</p>
-            </div>
+            <InfoRow label="Họ và tên đầy đủ" value={user.fullName} />
+            <InfoRow label="Vai trò" value={user.role} />
+            <InfoRow label="Địa chỉ email" value={user.email} />
+            <InfoRow label="SĐT" value={user.phone} />
+            <InfoRow label="Trạng thái" value={user.status} />
+            <InfoRow label="Ngày khoá" value={user.lockDate} />
           </div>
 
           {/* Reasons */}
           <div className="mt-6 text-slate-900">
-            <p className="font-semibold">Lý do khoá tài khoản</p>
-            <p className="mt-2">
-              Tài khoản bị khóa do đăng mẫu thiết kế bị báo cáo vi phạm bản quyền quá 3 lần trong vòng 7 ngày.
-            </p>
-
-            <p className="mt-4 font-semibold">Lý do khiếu nại</p>
-            <p className="mt-2">Tài khoản bị khoá nhầm</p>
+            <ReasonSection label="Lý do khoá tài khoản" value={user.lockReason} />
+            <ReasonSection label="Lý do khiếu nại" value={user.appealReason} className="mt-4" />
           </div>
 
           {/* History table */}
@@ -88,24 +107,15 @@ export default function UnlockHistoryModalPage() {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td className="border border-slate-400 py-2 px-3 text-center">1</td>
-                    <td className="border border-slate-400 py-2 px-3">Nguyễn Thị Bình</td>
-                    <td className="border border-slate-400 py-2 px-3 text-center">15/07/2025</td>
-                    <td className="border border-slate-400 py-2 px-3 text-center">Từ chối</td>
-                    <td className="border border-slate-400 py-2 px-3">
-                      Vi phạm 1 lần trước đó, chưa gỡ mẫu vi phạm.
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="border border-slate-400 py-2 px-3 text-center">2</td>
-                    <td className="border border-slate-400 py-2 px-3">Nguyễn Văn An</td>
-                    <td className="border border-slate-400 py-2 px-3 text-center">24/07/2025</td>
-                    <td className="border border-slate-400 py-2 px-3 text-center">Từ chối</td>
-                    <td className="border border-slate-400 py-2 px-3">
-                      Đề nghị khoá vĩnh viễn.
-                    </td>
-                  </tr>
+                  {user.processingHistory.map((record) => (
+                    <tr key={record.id}>
+                      <td className="border border-slate-400 py-2 px-3 text-center">{record.id}</td>
+                      <td className="border border-slate-400 py-2 px-3">{record.processor}</td>
+                      <td className="border border-slate-400 py-2 px-3 text-center">{record.processDate}</td>
+                      <td className="border border-slate-400 py-2 px-3 text-center">{record.action}</td>
+                      <td className="border border-slate-400 py-2 px-3">{record.note}</td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </div>
@@ -114,4 +124,31 @@ export default function UnlockHistoryModalPage() {
       </div>
     </>
   );
+}
+
+/* --- Components --- */
+function InfoRow({ label, value }: { label: string; value: string }) {
+  return (
+    <div>
+      <p className="font-semibold">{label}</p>
+      <p className="mt-1">{value}</p>
+    </div>
+  )
+}
+
+function ReasonSection({ 
+  label, 
+  value, 
+  className 
+}: { 
+  label: string; 
+  value: string; 
+  className?: string 
+}) {
+  return (
+    <div className={className}>
+      <p className="font-semibold">{label}</p>
+      <p className="mt-2">{value}</p>
+    </div>
+  )
 }
