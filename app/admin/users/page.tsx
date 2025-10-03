@@ -90,21 +90,19 @@ export default function AdminUsersPage() {
 
   // Filtering logic
   const filteredUsers = users.filter((u) => {
-    const matchesSearch = search.trim() === "" || u.name.toLowerCase().includes(search.trim().toLowerCase());
     const matchesStatus = userStatusFilter === "all" ? true : u.status === userStatusFilter;
     const matchesType = userTypeFilter === "all" ? true : u.type === userTypeFilter;
-    return matchesSearch && matchesStatus && matchesType;
+    return matchesStatus && matchesType;
   });
 
   const filteredUnlockRequests = unlockRequests.filter((r) => {
-    const matchesSearch = search.trim() === "" || r.name.toLowerCase().includes(search.trim().toLowerCase());
     const matchesStatus =
       unlockStatusFilter === "all"
         ? true
         : unlockStatusFilter === "pending"
         ? r.status === "pending"
         : r.status === "processed";
-    return matchesSearch && matchesStatus;
+    return matchesStatus;
   });
 
   // Display helpers
@@ -133,43 +131,43 @@ export default function AdminUsersPage() {
         <aside className="w-64 bg-blue-900 text-white p-4 space-y-4">
           <nav className="flex flex-col px-2">
             <button className="w-full flex items-center gap-4 px-4 py-4 rounded-lg hover:bg-[#002a70]">
-              <img src="/homeIcon.png" alt="Home" className="w-6 h-6 shrink-0" />
+              <img src="/homeIcon.png" alt="Home" className="w-8 h-8 shrink-0" />
               <span className="text-2xl font-semibold whitespace-nowrap leading-none">Trang chủ</span>
             </button>
             <hr className="-mx-2 my-2 h-px bg-white/50 border-0" />
 
             <button className="w-full flex items-center gap-4 px-4 py-4 rounded-lg hover:bg-[#002a70]">
-              <img src="/adminManagementIcon.png" alt="Admin Management" className="w-6 h-6 shrink-0" />
+              <img src="/adminManagementIcon.png" alt="Admin Management" className="w-8 h-8 shrink-0" />
               <span className="text-2xl font-semibold whitespace-nowrap leading-none">Quản lý admin</span>
             </button>
             <hr className="-mx-2 my-2 h-px bg-white/50 border-0" />
 
             <button className="w-full flex items-center gap-4 px-4 py-4 rounded-lg hover:bg-[#002a70]">
-              <img src="/userManagementIcon.png" alt="User Management" className="w-6 h-6 shrink-0" />
+              <img src="/userManagementIcon.png" alt="User Management" className="w-8 h-8 shrink-0" />
               <span className="text-2xl font-semibold leading-none">Quản lý người dùng</span>
             </button>
             <hr className="-mx-2 my-2 h-px bg-white/50 border-0" />
 
             <button className="w-full flex items-center gap-4 px-4 py-4 rounded-lg hover:bg-[#002a70]">
-              <img src="/styleIcon.png" alt="Style" className="w-6 h-6 shrink-0" />
+              <img src="/styleIcon.png" alt="Style" className="w-8 h-8 shrink-0" />
               <span className="text-2xl font-semibold whitespace-nowrap leading-none">Thể loại</span>
             </button>
             <hr className="-mx-2 my-2 h-px bg-white/50 border-0" />
 
             <button className="w-full flex items-center gap-4 px-4 py-4 rounded-lg hover:bg-[#002a70]">
-              <img src="/reportIcon.png" alt="Report" className="w-6 h-6 shrink-0" />
+              <img src="/reportIcon.png" alt="Report" className="w-8 h-8 shrink-0" />
               <span className="text-2xl font-semibold whitespace-nowrap leading-none">Báo cáo</span>
             </button>
             <hr className="-mx-2 my-2 h-px bg-white/50 border-0" />
 
             <button className="w-full flex items-center gap-4 px-4 py-4 rounded-lg hover:bg-[#002a70]">
-              <img src="/settingIcon.png" alt="Settings" className="w-6 h-6 shrink-0" />
+              <img src="/settingIcon.png" alt="Settings" className="w-8 h-8 shrink-0" />
               <span className="text-2xl font-semibold whitespace-nowrap leading-none">Hệ thống</span>
             </button>
             <hr className="-mx-2 my-2 h-px bg-white/50 border-0" />
 
             <button className="w-full flex items-center gap-4 px-4 py-4 rounded-lg hover:bg-[#002a70] mt-2">
-              <img src="/logoutIcon.png" alt="Logout" className="w-6 h-6 shrink-0" />
+              <img src="/logoutIcon.png" alt="Logout" className="w-8 h-8 shrink-0" />
               <span className="text-2xl font-semibold whitespace-nowrap leading-none">Đăng xuất</span>
             </button>
           </nav>
@@ -211,8 +209,9 @@ export default function AdminUsersPage() {
 
             {/* Search */}
             <div className="flex items-center gap-2">
-              <Input className="text-base" placeholder="Nhập nội dung tìm kiếm" value={search} onChange={(e) => setSearch(e.target.value)} />
-              <Button className="bg-green-500 text-base">Tìm kiếm</Button>
+              <Input className="bg-[#BFE3F3] rounded-full px-4 py-2 text-black placeholder:text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-400 border-none" 
+              placeholder="Nhập nội dung tìm kiếm" value={search} onChange={(e) => setSearch(e.target.value)} />
+              <Button className="bg-green-500 text-base rounded-full">Tìm kiếm</Button>
             </div>
 
             {/* Filters on new line */}
@@ -325,8 +324,9 @@ export default function AdminUsersPage() {
 
             {/* Search */}
             <div className="flex items-center gap-2">
-              <Input className="text-base" placeholder="Nhập nội dung tìm kiếm" />
-              <Button className="bg-green-500 text-base">Tìm kiếm</Button>
+              <Input className="bg-[#BFE3F3] rounded-full px-4 py-2 text-black placeholder:text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-400 border-none" 
+              placeholder="Nhập nội dung tìm kiếm" />
+              <Button className="bg-green-500 text-base rounded-full">Tìm kiếm</Button>
             </div>
 
             {/* Filters on new line */}
@@ -391,24 +391,24 @@ export default function AdminUsersPage() {
   // Helper components
   function UserTable({ users }: { users: User[] }) {
     return (
-      <table className="w-full bg-white border text-lg mt-4">
-        <thead>
-          <tr className="bg-gray-200 text-left">
-            <th className="p-3 font-semibold">STT</th>
-            <th className="p-3 font-semibold">Họ và tên</th>
-            <th className="p-3 font-semibold">Loại người dùng</th>
-            <th className="p-3 font-semibold">Trạng thái</th>
-            <th className="p-3 font-semibold">Thao tác</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map((u, i) => (
-            <tr key={u.id} className="border-t">
-              <td className="p-3">{i + 1}</td>
-              <td className="p-3">{u.name}</td>
-              <td className="p-3">{displayUserType(u.type)}</td>
-              <td className="p-3">{displayUserStatus(u.status)}</td>
-              <td className="p-3 flex gap-2">
+    <table className="w-full border border-black text-lg mt-4 border-collapse">
+  <thead>
+    <tr className="bg-gray-200 text-left">
+      <th className="p-3 font-semibold border border-black">STT</th>
+      <th className="p-3 font-semibold border border-black">Họ và tên</th>
+      <th className="p-3 font-semibold border border-black">Loại người dùng</th>
+      <th className="p-3 font-semibold border border-black">Trạng thái</th>
+      <th className="p-3 font-semibold border border-black">Thao tác</th>
+    </tr>
+  </thead>
+  <tbody>
+    {users.map((u, i) => (
+      <tr key={u.id} className="border border-black">
+        <td className="p-3 border border-black">{i + 1}</td>
+        <td className="p-3 border border-black">{u.name}</td>
+        <td className="p-3 border border-black">{displayUserType(u.type)}</td>
+        <td className="p-3 border border-black">{displayUserStatus(u.status)}</td>
+        <td className="p-3 border border-black items-center gap-2">
                 <Button size="sm" variant="outline">
                   <img src="/viewIcon.png" alt="View" className="w-4 h-4" />
                 </Button>
@@ -434,26 +434,26 @@ export default function AdminUsersPage() {
 
   function UnlockRequestTable({ requests }: { requests: UnlockRequest[] }) {
     return (
-      <table className="w-full bg-white border text-lg mt-4">
-        <thead>
-          <tr className="bg-gray-200 text-left">
-            <th className="p-3 font-semibold">STT</th>
-            <th className="p-3 font-semibold">Họ và tên</th>
-            <th className="p-3 font-semibold">Nội dung khiếu nại</th>
-            <th className="p-3 font-semibold">Ngày gửi</th>
-            <th className="p-3 font-semibold">Trạng thái</th>
-            <th className="p-3 font-semibold">Thao tác</th>
-          </tr>
-        </thead>
-        <tbody>
-          {requests.map((r, i) => (
-            <tr key={r.id} className="border-t">
-              <td className="p-3">{i + 1}</td>
-              <td className="p-3">{r.name}</td>
-              <td className="p-3">{r.reason}</td>
-              <td className="p-3">{r.date}</td>
-              <td className="p-3">{displayUnlockStatus(r.status)}</td>
-              <td className="p-3">
+<table className="w-full border border-black text-lg mt-4 border-collapse">
+  <thead>
+    <tr className="bg-gray-200 text-left">
+      <th className="p-3 font-semibold border border-black">STT</th>
+      <th className="p-3 font-semibold border border-black">Họ và tên</th>
+      <th className="p-3 font-semibold border border-black">Nội dung khiếu nại</th>
+      <th className="p-3 font-semibold border border-black">Ngày gửi</th>
+      <th className="p-3 font-semibold border border-black">Trạng thái</th>
+       <th className="p-3 font-semibold border border-black">Thao tác</th>
+    </tr>
+  </thead>
+  <tbody>
+    {requests.map((r, i) => (
+      <tr key={r.id} className="border border-black">
+        <td className="p-3 border border-black">{i + 1}</td>
+        <td className="p-3 border border-black">{r.name}</td>
+        <td className="p-3 border border-black">{r.reason}</td>
+        <td className="p-3 border border-black">{r.date}</td>
+        <td className="p-3 border border-black">{displayUnlockStatus(r.status)}</td>
+        <td className="p-3 border border-black">
                 <Button size="sm" variant="outline">
                  <img src="/viewIcon.png" alt="View" className="w-4 h-4" />
                 </Button>

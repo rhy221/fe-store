@@ -63,43 +63,43 @@ export default function AdminDashboard() {
         <aside className="w-64 bg-blue-900 text-white p-4 space-y-4">
           <nav className="flex flex-col px-2">
             <button className="w-full flex items-center gap-4 px-4 py-4 rounded-lg hover:bg-[#002a70]">
-              <img src="/homeIcon.png" alt="Home" className="w-6 h-6 shrink-0" />
+              <img src="/homeIcon.png" alt="Home" className="w-8 h-8 shrink-0" />
               <span className="text-2xl font-semibold whitespace-nowrap leading-none">Trang chủ</span>
             </button>
             <hr className="-mx-2 my-2 h-px bg-white/50 border-0" />
 
             <button className="w-full flex items-center gap-4 px-4 py-4 rounded-lg hover:bg-[#002a70]">
-              <img src="/adminManagementIcon.png" alt="Admin Management" className="w-6 h-6 shrink-0" />
+              <img src="/adminManagementIcon.png" alt="Admin Management" className="w-8 h-8 shrink-0" />
               <span className="text-2xl font-semibold whitespace-nowrap leading-none">Quản lý admin</span>
             </button>
             <hr className="-mx-2 my-2 h-px bg-white/50 border-0" />
 
             <button className="w-full flex items-center gap-4 px-4 py-4 rounded-lg hover:bg-[#002a70]">
-              <img src="/userManagementIcon.png" alt="User Management" className="w-6 h-6 shrink-0" />
+              <img src="/userManagementIcon.png" alt="User Management" className="w-8 h-8 shrink-0" />
               <span className="text-2xl font-semibold leading-none">Quản lý người dùng</span>
             </button>
             <hr className="-mx-2 my-2 h-px bg-white/50 border-0" />
 
             <button className="w-full flex items-center gap-4 px-4 py-4 rounded-lg hover:bg-[#002a70]">
-              <img src="/styleIcon.png" alt="Style" className="w-6 h-6 shrink-0" />
+              <img src="/styleIcon.png" alt="Style" className="w-8 h-8 shrink-0" />
               <span className="text-2xl font-semibold whitespace-nowrap leading-none">Thể loại</span>
             </button>
             <hr className="-mx-2 my-2 h-px bg-white/50 border-0" />
 
             <button className="w-full flex items-center gap-4 px-4 py-4 rounded-lg hover:bg-[#002a70]">
-              <img src="/reportIcon.png" alt="Report" className="w-6 h-6 shrink-0" />
+              <img src="/reportIcon.png" alt="Report" className="w-8 h-8 shrink-0" />
               <span className="text-2xl font-semibold whitespace-nowrap leading-none">Báo cáo</span>
             </button>
             <hr className="-mx-2 my-2 h-px bg-white/50 border-0" />
 
             <button className="w-full flex items-center gap-4 px-4 py-4 rounded-lg hover:bg-[#002a70]">
-              <img src="/settingIcon.png" alt="Settings" className="w-6 h-6 shrink-0" />
+              <img src="/settingIcon.png" alt="Settings" className="w-8 h-8 shrink-0" />
               <span className="text-2xl font-semibold whitespace-nowrap leading-none">Hệ thống</span>
             </button>
             <hr className="-mx-2 my-2 h-px bg-white/50 border-0" />
 
             <button className="w-full flex items-center gap-4 px-4 py-4 rounded-lg hover:bg-[#002a70] mt-2">
-              <img src="/logoutIcon.png" alt="Logout" className="w-6 h-6 shrink-0" />
+              <img src="/logoutIcon.png" alt="Logout" className="w-8 h-8 shrink-0" />
               <span className="text-2xl font-semibold whitespace-nowrap leading-none">Đăng xuất</span>
             </button>
           </nav>
@@ -146,7 +146,7 @@ export default function AdminDashboard() {
             <div className="flex gap-2 mb-2">
               <input
                 placeholder="Nhập nội dung tìm kiếm"
-                className="flex-1 rounded-full px-4 py-2 border bg-gray-100 text-lg"
+                className="bg-[#BFE3F3] flex-1 rounded-full px-4 py-2 border text-lg "
               />
               <button className="px-4 py-2 bg-green-500 rounded-full text-white font-semibold">
                 Tìm kiếm
@@ -210,7 +210,7 @@ function StatCard({
     <div
       className={`${color} rounded-full flex items-center gap-4 px-5 py-4 min-h-[92px] h-full min-w-0 shadow-md`}
     >
-      <img src={iconSrc} alt={label} className="w-7 h-7 shrink-0" />
+      <img src={iconSrc} alt={label} className="w-8 h-8 shrink-0" />
       <span className="flex-1 font-semibold leading-tight whitespace-nowrap overflow-hidden text-ellipsis">
         {label}
       </span>
