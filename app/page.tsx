@@ -1,102 +1,84 @@
-import Image from "next/image";
-
-export default function Home() {
+export default function LoginPage() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <div className="min-h-screen flex flex-col bg-white">
+      {/* Header */}
+      <header className="flex items-center justify-between border border-blue-500 p-4">
+        <div className="flex items-center gap-2">
+          <img src="/images/LOGO.jpg" alt="HHCloset" className="w-10 h-10 rounded-full" />
+          <span className="font-bold text-xl">HHCLOSET</span>
+        </div>
+        <span className="italic font-semibold text-blue-800">
+          Từ bạn đến gu - Định hình xu hướng
+        </span>
+      </header>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+      {/* Content */}
+      <main className="flex flex-1 flex-row">
+        {/* Cột trái */}
+        <div className="flex flex-col items-center justify-center bg-blue-600 text-white p-6 w-1/2">
+          <img
+            src="/images/LOGO.jpg"
+            alt="HHCloset"
+            className="w-75 h-75 mb-4 rounded-full"
+          />
+          <p className="text-center text-lg mb-6 font-bold">
+            Nền tảng chia sẻ và <br />
+            đấu giá thời trang số ở Việt Nam
+          </p>
+        </div>
+
+        {/* Cột phải */}
+        <div className="flex flex-col items-center justify-center bg-blue-600 text-white p-6 w-1/2">
+          <div className="bg-white text-black rounded-xl shadow-md w-full max-w-sm p-6">
+            <h2 className="text-xl font-bold mb-4">Đăng nhập</h2>
+
+            <form className="flex flex-col gap-4">
+              <input
+                type="text"
+                placeholder="Email/Số điện thoại/Tên đăng nhập"
+                className="border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+              <input
+                type="password"
+                placeholder="Mật khẩu"
+                className="border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+              <button
+                type="submit"
+                className="w-40 mx-auto flex justify-center bg-blue-600 text-white font-semibold py-2 px-6 rounded-full hover:bg-blue-700 truncate"
+              >
+                Đăng nhập
+              </button>
+            </form>
+
+            <div className="flex justify-between items-center text-sm mt-3">
+              <a href="/auth/forgotpassword" className="text-blue-600 hover:underline">
+                Quên mật khẩu
+              </a>
+            </div>
+
+            <div className="flex justify-center mt-3">
+              <p className="text-sm">
+                Bạn mới biết đến với HHCloset?{" "}
+                <a href="/auth/register" className="font-semibold text-blue-600 hover:underline">
+                  Đăng ký
+                </a>             
+              </p>
+            </div>            
+          </div>
         </div>
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+
+      {/* Footer */}
+      <footer className="bg-blue-600 text-white text-center text-sm py-3 px-4">
+        <p className="font-bold">Công ty TNHH HHCloset</p>
+        <p>
+          Địa chỉ trụ sở chính: Tầng 4-5-6, Tòa nhà SEHouse, phường Thủ Đức, thành phố Hồ Chí Minh
+        </p>
+        <p>Chi nhánh 1: 125 đường Độc Lập, khu phố Long Phước, phường Long Khánh, tỉnh Đồng Tháp</p>
+        <p>
+          Chi nhánh 2: 785 đường Bác Ái, khu phố Hậu Giang, phường Ngã Bảy, thành phố Cần Thơ
+        </p>
       </footer>
     </div>
   );
