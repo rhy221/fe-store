@@ -17,11 +17,11 @@ let userStatics: UserStatic[] =
 
 let modals: Modal[] = 
 [
-  {id: "f", name: "duckkkk", thumbUrl: "/pathetic.jpg"},
-  {id: "f", name: "duckkkk", thumbUrl: "/pathetic.jpg"},
-  {id: "f", name: "duckkkk", thumbUrl: "/pathetic.jpg"},
-  {id: "f", name: "duckkkk", thumbUrl: "/pathetic.jpg"},
-  {id: "f", name: "duckkkk", thumbUrl: "/pathetic.jpg"},
+  {id: "f", name: "duckkkk", thumbUrl: "/clothes_ex1.jpg"},
+  {id: "f", name: "duckkkk", thumbUrl: "/clothes_ex1.jpg"},
+  {id: "f", name: "duckkkk", thumbUrl: "/clothes_ex1.jpg"},
+  {id: "f", name: "duckkkk", thumbUrl: "/clothes_ex1.jpg"},
+  {id: "f", name: "duckkkk", thumbUrl: "/clothes_ex1.jpg"},
 ]
 
 export default function Home() {

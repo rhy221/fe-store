@@ -1,53 +1,27 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Select, SelectContent, SelectItem, SelectTrigger } from "@/components/ui/select";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Toggle } from "@/components/ui/toggle";
-import { Car, Pencil, PersonStanding, Search, Star, ThumbsUp, UserPlus, UserRoundPlus } from "lucide-react";
 import Image from "next/image";
 
 
 
 export default function Home() {
   return (
-    <div className="bg-background">
-      <div className="grid grid-cols-[2fr_1fr] w-full bg-white">
-        <div className="grid grid-cols-[4fr_1fr]">
-          <div className="flex flex-col justify-around size-full text-9xl font-montserrat">
-            <div className="self-start">
-              <span >Effortless.</span>
-            </div>
-            <div className="self-center">
-              <span>Timeless.</span>
-            </div>
-            <div className="self-end">
-              <span>Digital.</span>
-            </div>
-          </div>
-          <div className="m-5">
-            <Button className="text-2xl">GO DIGITAL</Button>
-          </div>
-        </div>
-        <div>
-          <img src="/background2.jpg" alt="bg" className="w-full h-auto" />
-        </div>
+    <div className="mx-8 my-4">
+      {/* {filter} */}
+      <div className="mb-2">
+        <FilterBar />
       </div>
-
-      <div className="bg-white py-20 px-40">
-        <div className="mb-8">
-          <div className="flex flex-col gap-2">
-            <h3 className="text-2xl font-bold">Explore Digital Fashion</h3>
-            <p>Find the perfect one that fit your styles</p>
-          </div>
-        </div>
-        
-        <div>
-          <ModalListing modals={modals}/>
-        </div>
+      {/* {products} */}
+      <div className="mb-4">
+        <ModalListing modals={modals}/>
+      </div>  
+      {/* {Pagination} */}
+      <div>
+         <PagePagination />
       </div>
     </div>
   );
@@ -66,18 +40,15 @@ let modals: Modal[] =
   {id: "f", name: "duckkkk", thumbUrl: "/clothes_ex1.jpg"},
   {id: "f", name: "duckkkk", thumbUrl: "/clothes_ex1.jpg"},
   {id: "f", name: "duckkkk", thumbUrl: "/clothes_ex1.jpg"},
-  {id: "f", name: "duckkkk", thumbUrl: "/clothes_ex1.jpg"},
-  {id: "f", name: "duckkkk", thumbUrl: "/clothes_ex1.jpg"},
-  {id: "f", name: "duckkkk", thumbUrl: "/clothes_ex1.jpg"},
 ]
 
 
 function Modal({name, thumbUrl}: Modal) {
   return (
-      <Card className="overflow-hidden py-0 ">
+      <Card className="w-full overflow-hidden py-0 ">
         <div className="flex flex-col">
           <div className="relative">
-            <img src={thumbUrl} alt="Thumb" className="w-full h-40"/>
+            <img src={thumbUrl} alt="Thumb" className="w-full h-60"/>
           </div>
           <div className="px-4 py-2">
             <h3>{name}</h3>
@@ -101,12 +72,12 @@ function ModalListing({modals}: {modals:Modal[]})
 function FilterBar() {
   return (
     <div className="flex justify-between gap-2">
-        <Toggle variant={"outline"} className="flex-1">On Sale</Toggle>
-        <Toggle variant={"outline"} className="flex-1">Free</Toggle>
-        <Toggle variant={"outline"} className="flex-1">Auction</Toggle>
+        <Toggle variant={"outline"} className="flex-1 bg-white">On Sale</Toggle>
+        <Toggle variant={"outline"} className="flex-1 bg-white">Free</Toggle>
+        <Toggle variant={"outline"} className="flex-1 bg-white">Auction</Toggle>
         <Popover>
           <PopoverTrigger asChild className="w-80">
-            <Button variant={"outline"}>Price</Button>
+            <Button variant={"outline"} className="bg-white">Price</Button>
           </PopoverTrigger>
           <PopoverContent className="">
             <div>
@@ -114,9 +85,9 @@ function FilterBar() {
             </div>
           </PopoverContent>
         </Popover>
-        <Toggle variant={"outline"} className="flex-1">Sale</Toggle>
+        <Toggle variant={"outline"} className="flex-1 bg-white">Sale</Toggle>
         <Select>
-          <SelectTrigger defaultValue="bestmatch" className="w-60">
+          <SelectTrigger defaultValue="bestmatch" className="w-60 bg-white">
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="bestmatch">Best match</SelectItem>
@@ -127,7 +98,7 @@ function FilterBar() {
             <SelectItem value="lowerprice">Lower price</SelectItem>
           </SelectContent>
         </Select>
-        <Button variant={"outline"}>Reset</Button>
+        <Button variant={"outline"} className="bg-white">Reset</Button>
 
       </div>
   );

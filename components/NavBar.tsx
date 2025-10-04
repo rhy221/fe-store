@@ -17,7 +17,7 @@ import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
 
 const NavBar = () => {
   return (
-    <div className='flex justify-between items-center py-4 px-8 border-b-2 '>
+    <div className='flex justify-between items-center py-4 px-8 border-b-2 bg-white'>
         {/*Left*/}
         <div className='flex items-center basis-[700px] gap-4'>
             {/* Title */}
@@ -28,9 +28,12 @@ const NavBar = () => {
               {/* Search */}
             <div className='flex flex-1 items-center gap-2'>
                 <Input className='flex-1'></Input>
-                <Button>
-                    <Search />
-                </Button>
+                <Link href="/search">
+                    <Button>
+                        <Search />
+                    </Button>
+                </Link>
+                
             </div>
         </div>
         
@@ -39,12 +42,7 @@ const NavBar = () => {
             {/* Nav */}
             <div>
                 <NavigationMenu>
-                  <NavigationMenuList>
-                    {/* <NavigationMenuItem>
-                        <NavigationMenuLink asChild>
-                            <Link href='/'>Trang chủ</Link>
-                        </NavigationMenuLink>
-                    </NavigationMenuItem> */}
+                  <NavigationMenuList>        
                      <NavigationMenuItem>
                         <NavigationMenuLink asChild>
                             <Link href='/'>Nổi bật</Link>
@@ -60,21 +58,11 @@ const NavBar = () => {
                             <Link href='/'>Thể loại</Link>
                         </NavigationMenuLink>
                     </NavigationMenuItem>
-                     {/* <NavigationMenuItem>
-                        <NavigationMenuLink asChild>
-                            <Link href='/'>Tài khoản</Link>
-                        </NavigationMenuLink>
-                    </NavigationMenuItem> */}
                      <NavigationMenuItem>
                         <NavigationMenuLink asChild>
                             <Link href='/'>Báo cáo</Link>
                         </NavigationMenuLink>
                     </NavigationMenuItem>
-                     {/* <NavigationMenuItem>
-                        <NavigationMenuLink asChild>
-                            <Link href='/'>Cài đặt</Link>
-                        </NavigationMenuLink>
-                    </NavigationMenuItem> */}
                   </NavigationMenuList>
                 </NavigationMenu>
             </div>     
