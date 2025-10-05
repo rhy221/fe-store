@@ -2,8 +2,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Filter } from "lucide-react";
+import { Card } from "@/components/ui/card";
+import UnlockRequestDialog, { type UnlockRequest } from "@/components/UnlockRequestDialog";
 
 // Types
 type User = {
@@ -11,14 +11,6 @@ type User = {
   name: string;
   type: "designer" | "customer";
   status: "active" | "locked";
-}
-
-type UnlockRequest = {
-  id: number;
-  name: string;
-  reason: string;
-  date: string;
-  status: "pending" | "processed";
 }
 
 type AdminStats = {
@@ -52,11 +44,14 @@ const users: User[] = [
 
 const unlockRequests: UnlockRequest[] = [
   { id: 1, name: "Trịnh Mai Cường", reason: "Tài khoản bị khoá nhầm", date: "22/07/2025", status: "pending" },
-  { id: 2, name: "Nguyễn Văn B", reason: "Yêu cầu review", date: "01/08/2025", status: "processed" },
 ];
 
 export default function AdminUsersPage() {
   const [search, setSearch] = useState("");
+  
+  // Add dialog states
+  const [selectedRequest, setSelectedRequest] = useState<UnlockRequest | null>(null);
+  const [showUnlockDialog, setShowUnlockDialog] = useState(false);
 
   // Dropdown states
   const [showUserStatusDropdown, setShowUserStatusDropdown] = useState(false);
@@ -104,6 +99,11 @@ export default function AdminUsersPage() {
         : r.status === "processed";
     return matchesStatus;
   });
+
+  const handleViewRequest = (request: UnlockRequest) => {
+    setSelectedRequest(request);
+    setShowUnlockDialog(true);
+  };
 
   // Display helpers
   const displayUserStatus = (s: string) => (s === "active" ? "Đang hoạt động" : "Bị khoá");
@@ -385,6 +385,13 @@ export default function AdminUsersPage() {
           </section>
         </main>
       </div>
+
+      {/* Unlock Request Dialog */}
+      <UnlockRequestDialog
+        request={selectedRequest}
+        open={showUnlockDialog}
+        onOpenChange={setShowUnlockDialog}
+      />
     </div>
   );
 
@@ -434,28 +441,32 @@ export default function AdminUsersPage() {
 
   function UnlockRequestTable({ requests }: { requests: UnlockRequest[] }) {
     return (
-<table className="w-full border border-black text-lg mt-4 border-collapse">
-  <thead>
-    <tr className="bg-gray-200 text-left">
-      <th className="p-3 font-semibold border border-black">STT</th>
-      <th className="p-3 font-semibold border border-black">Họ và tên</th>
-      <th className="p-3 font-semibold border border-black">Nội dung khiếu nại</th>
-      <th className="p-3 font-semibold border border-black">Ngày gửi</th>
-      <th className="p-3 font-semibold border border-black">Trạng thái</th>
-       <th className="p-3 font-semibold border border-black">Thao tác</th>
-    </tr>
-  </thead>
-  <tbody>
-    {requests.map((r, i) => (
-      <tr key={r.id} className="border border-black">
-        <td className="p-3 border border-black">{i + 1}</td>
-        <td className="p-3 border border-black">{r.name}</td>
-        <td className="p-3 border border-black">{r.reason}</td>
-        <td className="p-3 border border-black">{r.date}</td>
-        <td className="p-3 border border-black">{displayUnlockStatus(r.status)}</td>
-        <td className="p-3 border border-black">
-                <Button size="sm" variant="outline">
-                 <img src="/viewIcon.png" alt="View" className="w-4 h-4" />
+      <table className="w-full border border-black text-lg mt-4 border-collapse">
+        <thead>
+          <tr className="bg-gray-200 text-left">
+            <th className="p-3 font-semibold border border-black">STT</th>
+            <th className="p-3 font-semibold border border-black">Họ và tên</th>
+            <th className="p-3 font-semibold border border-black">Nội dung khiếu nại</th>
+            <th className="p-3 font-semibold border border-black">Ngày gửi</th>
+            <th className="p-3 font-semibold border border-black">Trạng thái</th>
+            <th className="p-3 font-semibold border border-black">Thao tác</th>
+          </tr>
+        </thead>
+        <tbody>
+          {requests.map((r, i) => (
+            <tr key={r.id} className="border border-black">
+              <td className="p-3 border border-black">{i + 1}</td>
+              <td className="p-3 border border-black">{r.name}</td>
+              <td className="p-3 border border-black">{r.reason}</td>
+              <td className="p-3 border border-black">{r.date}</td>
+              <td className="p-3 border border-black">{displayUnlockStatus(r.status)}</td>
+              <td className="p-3 border border-black">
+                <Button 
+                  size="sm" 
+                  variant="outline"
+                  onClick={() => handleViewRequest(r)}
+                >
+                  <img src="/viewIcon.png" alt="View" className="w-4 h-4" />
                 </Button>
               </td>
             </tr>
