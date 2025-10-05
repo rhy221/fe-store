@@ -1,5 +1,8 @@
 "use client"
 
+import { useState } from "react"
+import DesignDetailDialog, { type Design } from "@/components/DesignDetailDialog"
+
 // Designer type and data
 type Designer = {
   fullName: string
@@ -41,7 +44,63 @@ const designer: Designer = {
   }
 }
 
+// Sample designs data
+const designs: Design[] = [
+  {
+    name: "Footwear Romans Cad",
+    designer: "Nguyễn Văn Tiên",
+    description: "Mẫu giày lấy cảm hứng từ chiến binh La Mã với thiết kế dây đan mạnh mẽ và phong cách cổ điển hiện đại.",
+    category: "Giày",
+    status: "Chia sẻ",
+    datePosted: "15/09/2024",
+    image: "/designImage.png",
+    salesInfo: {
+      directPrice: "X",
+      auction: {
+        startingPrice: "X",
+        priceStep: "X",
+        finalPrice: "X",
+        winner: "X"
+      }
+    },
+    engagement: {
+      likes: 135,
+      views: 125
+    }
+  },
+  {
+    name: "Túi xách Flower",
+    designer: "Nguyễn Văn Tiên",
+    description: "Túi xách với họa tiết hoa xinh đẹp, phù hợp cho các buổi dạo phố.",
+    category: "Túi xách",
+    status: "Đang đấu giá",
+    datePosted: "20/09/2024",
+    image: "/designImage2.png",
+    salesInfo: {
+      directPrice: "500,000 VND",
+      auction: {
+        startingPrice: "300,000 VND",
+        priceStep: "50,000 VND",
+        finalPrice: "450,000 VND",
+        winner: "Nguyễn Thị B"
+      }
+    },
+    engagement: {
+      likes: 89,
+      views: 156
+    }
+  }
+]
+
 export default function AdminDashboard() {
+  const [selectedDesign, setSelectedDesign] = useState<Design | null>(null)
+  const [showDialog, setShowDialog] = useState(false)
+
+  const handleDesignClick = (design: Design) => {
+    setSelectedDesign(design)
+    setShowDialog(true)
+  }
+
   return (
     <div className="flex flex-col min-h-screen bg-gray-100">
       {/* Header */}
@@ -146,7 +205,7 @@ export default function AdminDashboard() {
             <div className="flex gap-2 mb-2">
               <input
                 placeholder="Nhập nội dung tìm kiếm"
-                className="bg-[#BFE3F3] flex-1 rounded-full px-4 py-2 border text-lg "
+                className="bg-[#BFE3F3] flex-1 rounded-full px-4 py-2 border text-lg"
               />
               <button className="px-4 py-2 bg-green-500 rounded-full text-white font-semibold">
                 Tìm kiếm
@@ -168,19 +227,25 @@ export default function AdminDashboard() {
 
           {/* Design list */}
           <div className="grid grid-cols-3 gap-6">
-            <DesignCard
-              image="/designImage.png"
-              title="Footwear Romans Cad"
-              status="CHIA SẺ"
-            />
-            <DesignCard
-              image="/designImage2.png"
-              title="Túi xách Flower"
-              status="ĐANG ĐẤU GIÁ"
-            />
+            {designs.map((design, index) => (
+              <DesignCard
+                key={index}
+                image={design.image}
+                title={design.name}
+                status={design.status.toUpperCase()}
+                onClick={() => handleDesignClick(design)}
+              />
+            ))}
           </div>
         </main>
       </div>
+
+      {/* Use the reusable component */}
+      <DesignDetailDialog 
+        design={selectedDesign}
+        open={showDialog}
+        onOpenChange={setShowDialog}
+      />
     </div>
   )
 }
@@ -223,13 +288,18 @@ function DesignCard({
   image,
   title,
   status,
+  onClick,
 }: {
   image: string
   title: string
   status: string
+  onClick: () => void
 }) {
   return (
-    <div className="rounded-lg border border-[#6a360e] p-4 shadow-sm hover:shadow-md bg-[#faf0e6] text-black flex flex-col items-center text-center h-72 justify-center">
+    <div 
+      className="rounded-lg border border-[#6a360e] p-4 shadow-sm hover:shadow-md bg-[#faf0e6] text-black flex flex-col items-center text-center h-72 justify-center cursor-pointer transition-shadow"
+      onClick={onClick}
+    >
       <img
         src={image}
         alt={title}
