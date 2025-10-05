@@ -33,10 +33,15 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased flex`}>
         <main className="w-full">
-          <div>
-            <NavBar />
-            {children}
+          <div className="relative">
+            <div className="sticky top-0 z-1">
+              <NavBar />
+            </div>
+            <div className="relative z-0">
+              {children}
             <Footer />
+            </div>
+            
           </div>
         </main>
       </body>
