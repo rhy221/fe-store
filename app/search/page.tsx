@@ -41,7 +41,7 @@ let models: Model[] =
 function ModelsListing({Models}: {Models:Model[]})
 {
   return (
-    <div className="grid grid-cols-4 grid-flow-row gap-4 w-full">
+    <div className="grid grid-cols-5 grid-flow-row gap-4 w-full">
       {Models.map((m, index) => (
         <Model key={index} {...m}/>
       ))}
