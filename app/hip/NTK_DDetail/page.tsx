@@ -37,24 +37,6 @@ export default function DesignDetail() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Header */}
-      <header className="flex justify-between items-center bg-[#e9f0f8] px-8 py-4 shadow">
-        <div className="flex items-center space-x-2">
-          <Image src="/logo.png" alt="HHCloset Logo" width={40} height={40} />
-          <h1 className="text-xl font-bold text-gray-800">HHCLOSET</h1>
-        </div>
-        <span className="text-sm font-semibold">Xin chào NTK: XYZ</span>
-      </header>
-
-      {/* Navbar */}
-      <nav className="bg-[#001f87] text-white flex space-x-8 px-10 py-3 text-sm font-medium">
-        <a href="#" className="hover:underline">TRANG CHỦ</a>
-        <a href="#" className="hover:underline">CÁ NHÂN</a>
-        <a href="#" className="hover:underline">MUA BÁN</a>
-        <a href="#" className="hover:underline">CÀI ĐẶT</a>
-        <a href="#" className="hover:underline">ĐĂNG XUẤT</a>
-      </nav>
-
       {/* Content */}
       <main className="flex flex-col md:flex-row max-w-5xl mx-auto p-10 gap-10">
         {/* Image */}
