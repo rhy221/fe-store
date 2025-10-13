@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Bruno_Ace_SC, Geist, Geist_Mono, Montserrat, Press_Start_2P } from "next/font/google";
 import "./globals.css";
+import NavBar from "@/components/NavBar";
+import Footer from "@/components/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -11,6 +13,23 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
+
+const montserrat = Montserrat({
+  variable: "--font-montserrat",
+  subsets: ["latin"],
+})
+
+const pressStart = Press_Start_2P({
+  weight: "400",
+  variable: "--font-press-start",
+  subsets: ["latin"]
+})
+
+const brunoAce = Bruno_Ace_SC({
+  weight: "400",
+  variable: "--font-bruno-ace",
+  subsets: ["latin"]
+})
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -24,10 +43,21 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+      <body className={`${geistSans.variable} ${geistMono.variable} ${montserrat.variable} ${pressStart.variable} ${brunoAce.variable} antialiased flex`}>
+        <main className="w-full">
+          <div className="relative">
+            <div className="sticky top-0 z-1">
+              <NavBar />
+            </div>
+            <div className="relative z-0">
+              {children}
+            </div>
+            <div>
+              <Footer/>
+            </div>
+            
+          </div>
+        </main>
       </body>
     </html>
   );
