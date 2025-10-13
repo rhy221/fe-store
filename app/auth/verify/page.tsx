@@ -64,13 +64,7 @@ export default function VerifyPage()
                                     </a>
                                 </p>
                          </div>
-                         <div className="flex justify-center mt-4">
-                                <p className="text-sm">                                    
-                                    <a href="/auth/details" className="font-semibold text-blue-600 hover:underline">
-                                        Infor
-                                    </a>
-                                </p>
-                         </div>
+                         
                     </div>
                 </div>
             </main>
@@ -89,6 +83,13 @@ export default function VerifyPage()
                 <p>
                     Chi nhánh 2: 785 đường Bác Ái, khu phố Hậu Giang, phường Ngã Bảy, thành phố Cần Thơ
                 </p>
+                <div className="flex justify-center mt-4">
+                                <p className="text-sm">                                    
+                                    <a href="/auth/details" className="font-semibold text-blue-600 hover:underline">
+                                        Infor
+                                    </a>
+                                </p>
+                         </div>
             </footer>
         </div>          
     );

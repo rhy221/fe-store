@@ -64,13 +64,7 @@ export default function ForgotPasswordPage()
                             </button>
                         </form>
                         
-                         <div className="flex justify-center mt-4">
-                                <p className="text-sm">                                    
-                                    <a href="/" className="font-semibold text-blue-600 hover:underline">
-                                        ABC
-                                    </a>
-                                </p>
-                         </div>
+                        
                     </div>
                 </div>
             </main>
@@ -89,6 +83,13 @@ export default function ForgotPasswordPage()
                 <p>
                     Chi nhánh 2: 785 đường Bác Ái, khu phố Hậu Giang, phường Ngã Bảy, thành phố Cần Thơ
                 </p>
+                 <div className="flex justify-center mt-4">
+                                <p className="text-sm">                                    
+                                    <a href="/" className="font-semibold text-blue-600 hover:underline">
+                                        ABC
+                                    </a>
+                                </p>
+                         </div>
             </footer>
         </div>          
     );

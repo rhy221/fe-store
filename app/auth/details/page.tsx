@@ -81,13 +81,7 @@ export default function DetailsPage()
                             </button>
                         </form>
                         
-                         <div className="flex justify-center mt-4">
-                                <p className="text-sm">                                    
-                                    <a href="/auth/changepassword" className="font-semibold text-blue-600 hover:underline">
-                                        Đổi mật khẩu
-                                    </a>
-                                </p>
-                         </div>
+                         
                     </div>
                 </div>
             </main>
@@ -106,6 +100,13 @@ export default function DetailsPage()
                 <p>
                     Chi nhánh 2: 785 đường Bác Ái, khu phố Hậu Giang, phường Ngã Bảy, thành phố Cần Thơ
                 </p>
+                <div className="flex justify-center mt-4">
+                                <p className="text-sm">                                    
+                                    <a href="/auth/changepassword" className="font-semibold text-blue-600 hover:underline">
+                                        Đổi mật khẩu
+                                    </a>
+                                </p>
+                         </div>
             </footer>
         </div>          
     );
