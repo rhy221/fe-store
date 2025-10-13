@@ -1,85 +1,123 @@
-export default function LoginPage() {
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import Image from "next/image";
+import Link from "next/link";
+
+
+
+export default function Home() {
   return (
-    <div className="min-h-screen flex flex-col bg-white">
-      {/* Header */}
-      <header className="flex items-center justify-between border border-blue-500 p-4">
-        <div className="flex items-center gap-2">
-          <img src="/images/LOGO.jpg" alt="HHCloset" className="w-10 h-10 rounded-full" />
-          <span className="font-bold text-xl">HHCLOSET</span>
-        </div>
-        <span className="italic font-semibold text-blue-800">
-          Từ bạn đến gu - Định hình xu hướng
-        </span>
-      </header>
-
-      {/* Content */}
-      <main className="flex flex-1 flex-row">
-        {/* Cột trái */}
-        <div className="flex flex-col items-center justify-center bg-blue-600 text-white p-6 w-1/2">
-          <img
-            src="/images/LOGO.jpg"
-            alt="HHCloset"
-            className="w-75 h-75 mb-4 rounded-full"
-          />
-          <p className="text-center text-lg mb-6 font-bold">
-            Nền tảng chia sẻ và <br />
-            đấu giá thời trang số ở Việt Nam
-          </p>
-        </div>
-
-        {/* Cột phải */}
-        <div className="flex flex-col items-center justify-center bg-blue-600 text-white p-6 w-1/2">
-          <div className="bg-white text-black rounded-xl shadow-md w-full max-w-sm p-6">
-            <h2 className="text-xl font-bold mb-4">Đăng nhập</h2>
-
-            <form className="flex flex-col gap-4">
-              <input
-                type="text"
-                placeholder="Email/Số điện thoại/Tên đăng nhập"
-                className="border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-              <input
-                type="password"
-                placeholder="Mật khẩu"
-                className="border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-              <button
-                type="submit"
-                className="w-40 mx-auto flex justify-center bg-blue-600 text-white font-semibold py-2 px-6 rounded-full hover:bg-blue-700 truncate"
-              >
-                Đăng nhập
-              </button>
-            </form>
-
-            <div className="flex justify-between items-center text-sm mt-3">
-              <a href="/auth/forgotpassword" className="text-blue-600 hover:underline">
-                Quên mật khẩu
-              </a>
+    <div className="flex flex-col bg-background">
+      {/* <div className="grid grid-cols-[2fr_1fr] w-full ">
+        <div className="grid grid-cols-[4fr_1fr]">
+          <div className="flex flex-col justify-around size-full text-4xl font-bruno-ace">
+            <div className="self-start">
+              <span >EFFORTLESS.</span>
             </div>
-
-            <div className="flex justify-center mt-3">
-              <p className="text-sm">
-                Bạn mới biết đến với HHCloset?{" "}
-                <a href="/auth/register" className="font-semibold text-blue-600 hover:underline">
-                  Đăng ký
-                </a>             
-              </p>
-            </div>            
+            <div className="self-center">
+              <span>TIMELESS.</span>
+            </div>
+            <div className="self-end">
+              <span>DIGITAL.</span>
+            </div>
+          </div>
+          <div className="m-5">
+            <Button className="text-2xl">GO DIGITAL</Button>
           </div>
         </div>
-      </main>
+        <div>
+          <img src="/background2.jpg" alt="bg" className="w-full h-auto" />
+        </div>
+      </div> */}
 
-      {/* Footer */}
-      <footer className="bg-blue-600 text-white text-center text-sm py-3 px-4">
-        <p className="font-bold">Công ty TNHH HHCloset</p>
-        <p>
-          Địa chỉ trụ sở chính: Tầng 4-5-6, Tòa nhà SEHouse, phường Thủ Đức, thành phố Hồ Chí Minh
-        </p>
-        <p>Chi nhánh 1: 125 đường Độc Lập, khu phố Long Phước, phường Long Khánh, tỉnh Đồng Tháp</p>
-        <p>
-          Chi nhánh 2: 785 đường Bác Ái, khu phố Hậu Giang, phường Ngã Bảy, thành phố Cần Thơ
-        </p>
-      </footer>
+      <div className="relative w-full h-[100vh] overflow-hidden bg-[url('/home_bg3.png')] bg-no-repeat bg-cover bg-center ">
+        
+          <div className="absolute flex flex-col left-20 top-20 text-6xl font-bruno-ace z-1">
+            <div className="self-start">
+              <span >EFFORTLESS.</span>
+            </div>
+            <div className="self-center">
+              <span>TIMELESS.</span>
+            </div>
+            <div className="self-end">
+              <span className="italic">DIGITAL.</span>
+            </div>
+          </div>
+
+          <Link href="/search">
+            <div className="absolute left-20 bottom-20">
+              <Button className="text-2xl px-20 py-2 font-montserrat">EXPLORE</Button>
+            </div>
+          </Link>
+
+        <div className="absolute left-1/2 -translate-x-1/2">
+          <Image src="/home_bg1.png" alt="bg" width={800} height={1000} className="w-[80vw] h-auto" />
+        </div>
+      </div>
+
+      <div className="absolute flex flex-col w-[350px] right-64 top-48 font-montserrat  z-1">
+            <p>
+              <span className="font-bold">Step into a new realm of fashion</span>  with our collection of digital clothes, where imagination meets technology
+            </p>
+          </div>
+
+      {/* <div className=" py-20 px-40">
+        <div className="mb-8">
+          <div className="flex flex-col gap-2">
+            <h3 className="text-2xl font-bold">Explore Digital Fashion</h3>
+            <p>Find the perfect one that fit your styles</p>
+          </div>
+        </div>
+        
+        <div>
+          <ModalListing modals={modals}/>
+        </div>
+      </div> */}
     </div>
   );
 }
+
+// type Modal = {
+//   id: string;
+//   name: string;
+//   thumbUrl: string;
+// }
+
+// let modals: Modal[] = 
+// [
+//   {id: "f", name: "duckkkk", thumbUrl: "/clothes_ex1.jpg"},
+//   {id: "f", name: "duckkkk", thumbUrl: "/clothes_ex1.jpg"},
+//   {id: "f", name: "duckkkk", thumbUrl: "/clothes_ex1.jpg"},
+//   {id: "f", name: "duckkkk", thumbUrl: "/clothes_ex1.jpg"},
+//   {id: "f", name: "duckkkk", thumbUrl: "/clothes_ex1.jpg"},
+//   {id: "f", name: "duckkkk", thumbUrl: "/clothes_ex1.jpg"},
+//   {id: "f", name: "duckkkk", thumbUrl: "/clothes_ex1.jpg"},
+//   {id: "f", name: "duckkkk", thumbUrl: "/clothes_ex1.jpg"},
+// ]
+
+
+// function Modal({name, thumbUrl}: Modal) {
+//   return (
+//       <Card className="overflow-hidden py-0 ">
+//         <div className="flex flex-col">
+//           <div className="relative w-full h-40">
+//             <Image src={thumbUrl} alt="Thumb" fill/>
+//           </div>
+//           <div className="px-4 py-2">
+//             <h3>{name}</h3>
+//           </div>
+//         </div>
+//       </Card>    
+//   )
+// }
+
+// function ModalListing({modals}: {modals:Modal[]})
+// {
+//   return (
+//     <div className="grid grid-cols-4 grid-flow-row gap-4 w-full">
+//       {modals.map((m, index) => (
+//         <Modal key={index} {...m}/>
+//       ))}
+//     </div>
+//   )
+// }
