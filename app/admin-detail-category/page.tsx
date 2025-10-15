@@ -1,30 +1,11 @@
 "use client";
-
-import { SetStateAction, useState } from "react";
+import { useState } from "react";
 import { Input } from "../components/ui/input";
 import { Button, CircleButton } from "../components/ui/button";
-import { CategoryCard } from "../components/ui/card";
-import AdminCategoryAddPopup from "../admin-category-add/page";
-import AdminCategoryEditPopup from "../admin-category-edit/page";
-import AdminCategoryDeletePopup from "../admin-category-delete/page";
+import { CategoryCard, ProductCard } from "../components/ui/card";
 
 export default function AdminCategoryDashboard() {
   const [search, setSearch] = useState("");
-  const [showPopup, setShowPopup] = useState(false);
-  const [showEditPopup, setShowEditPopup] = useState(false);
-  const [showDeletePopup, setShowDeletePopup] = useState(false);
-  // Optionally, you can track which category is being edited
-  // const [editCategory, setEditCategory] = useState(null);
-
-  const handleEdit = () => {
-    setShowEditPopup(true);
-    setShowDeletePopup(false);
-    // setEditCategory(category); // if you want to pass data
-  };
-  const handleDelete = () => {
-    setShowDeletePopup(true);
-    setShowEditPopup(false); // optional: close other popups
-  };
   return (
     <div className="flex flex-col min-h-screen bg-gray-100">
       {/* Header */}
@@ -132,25 +113,34 @@ export default function AdminCategoryDashboard() {
 
         {/* Main content */}
         <main className="flex-1 bg-white p-6 overflow-y-auto text-lg">
+          <p className="font-bold text-3xl">GIÀY</p>
+          <p>
+            Giày là nhóm các mẫu giày được phân loại theo kiểu dáng và công dụng
+            như giày thể thao, giày công sở, giày boot, giày sandal, mỗi loại
+            phù hợp với mục đích sử dụng và phong cách khác nhau.
+          </p>
           {/* Search */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 py-2">
             <Input
               className="text-base"
               placeholder="Nhập nội dung tìm kiếm"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
-            <Button className="bg-green-500 text-base">Tìm kiếm</Button>
+            <Button className="bg-green-500 text-base hover:bg-green-700">
+              Tìm kiếm
+            </Button>
           </div>
-          {/* Add Category */}
-          <div className="flex flex-row items-center">
-            <h2 className="font-bold px-2 py-4">Danh sách thể loại</h2>
-            <CircleButton onClick={() => setShowPopup(true)} />
+          {/* Filter for Product */}
+          <div className="flex items-center gap-5 py-2">
+            <Button className="bg-[#E6E6FA] text-black text-sm rounded-3xl hover:bg-[#cdcde2] ">
+              Tất cả
+            </Button>
+            <Button className="bg-[#E6E6FA] text-black text-sm rounded-3xl hover:bg-[#cdcde2] ">
+              Mới nhất
+            </Button>
           </div>
-          {showPopup && (
-            <AdminCategoryAddPopup onClose={() => setShowPopup(false)} />
-          )}
-          {/* Table of Card choose category */}
+          {/* Table of Product */}
           <table className="table-fixed min-w-full min-h-screen">
             <thead>
               <tr>
@@ -162,80 +152,58 @@ export default function AdminCategoryDashboard() {
             <tbody>
               <tr>
                 <td>
-                  <CategoryCard
-                    title="GIÀY"
-                    imageUrl="/image13.png"
-                    href="/admin-detail-category"
+                  <ProductCard
+                    title="Giày Grand Sport"
+                    imageUrl="/imageShoe1.png"
+                    href="#"
                     onMenuClick={() => alert("Menu clicked")}
-                    onEdit={handleEdit}
-                    onDelete={handleDelete}
                   />
                 </td>
                 <td>
-                  <CategoryCard
-                    title="DẠ HỘI"
-                    imageUrl="/imageDahoi.png"
+                  <ProductCard
+                    title="Giày Sunday Chunky"
+                    imageUrl="/imageShoe2.png"
                     href="#"
                     onMenuClick={() => alert("Menu clicked")}
-                    onEdit={handleEdit}
-                    onDelete={handleDelete}
                   />
                 </td>
                 <td>
-                  <CategoryCard
-                    title="ĐƯỜNG PHỐ"
-                    imageUrl="/imageDuongpho.png"
+                  <ProductCard
+                    title="Giày Yueying 3 Nam"
+                    imageUrl="/imageShoe3.png"
                     href="#"
                     onMenuClick={() => alert("Menu clicked")}
-                    onEdit={handleEdit}
-                    onDelete={handleDelete}
                   />
                 </td>
               </tr>
               <tr>
                 <td>
-                  <CategoryCard
-                    title="PHỤ KIỆN"
-                    imageUrl="/imagePhukien.png"
+                  <ProductCard
+                    title="Giày Grand Sport"
+                    imageUrl="/imageShoe1.png"
                     href="#"
                     onMenuClick={() => alert("Menu clicked")}
-                    onEdit={handleEdit}
-                    onDelete={handleDelete}
                   />
                 </td>
                 <td>
-                  <CategoryCard
-                    title="UNISEX"
-                    imageUrl="/imageUnisex.png"
+                  <ProductCard
+                    title="Giày Sunday Chunky"
+                    imageUrl="/imageShoe2.png"
                     href="#"
                     onMenuClick={() => alert("Menu clicked")}
-                    onEdit={handleEdit}
-                    onDelete={handleDelete}
                   />
                 </td>
                 <td>
-                  <CategoryCard
-                    title="TRẺ EM"
-                    imageUrl="/imageTreEm.png"
+                  <ProductCard
+                    title="Giày Yueying 3 Nam"
+                    imageUrl="/imageShoe3.png"
                     href="#"
                     onMenuClick={() => alert("Menu clicked")}
-                    onEdit={handleEdit}
-                    onDelete={handleDelete}
                   />
                 </td>
               </tr>
             </tbody>
           </table>
-          {/* Edit Category Popup */}
-          {showEditPopup && (
-            <AdminCategoryEditPopup onClose={() => setShowEditPopup(false)} />
-          )}
-          {/* Delete Category Popup */}
-          {showDeletePopup && (
-            <AdminCategoryDeletePopup
-              onClose={() => setShowDeletePopup(false)}
-            />
-          )}
         </main>
       </div>
     </div>
