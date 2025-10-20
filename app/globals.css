@@ -3,7 +3,9 @@
 
 @custom-variant dark (&:is(.dark *));
 
-@theme inline {
+@theme inline {/* Add this to your global CSS or as a style attribute */
+/* background-image: repeating-linear-gradient(to bottom, transparent, transparent 22px, #000 22px, #000 23px);
+background-size: 100% 23px; */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
@@ -123,3 +125,4 @@
     @apply bg-background text-foreground;
   }
 }
+
