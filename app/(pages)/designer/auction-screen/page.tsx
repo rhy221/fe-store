@@ -1,9 +1,9 @@
 "use client";
 import React from "react";
-import Header from "../../../components/Header";
-import AuctionTimer from "../../../components/AuctionTimer";
-import BiddingHistory from "../../../components/BiddingHistory";
-import AuctionInfo from "../../../components/AuctionInfo";
+import Header from "../../../../components/Header";
+import AuctionTimer from "../../../../components/AuctionTimer";
+import BiddingHistory from "../../../../components/BiddingHistory";
+import AuctionInfo from "../../../../components/AuctionInfo";
 
 // API Data Interfaces
 interface Bidder {
