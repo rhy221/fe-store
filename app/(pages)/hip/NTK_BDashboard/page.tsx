@@ -71,27 +71,7 @@ export default function NTK_BDashboard() {
 
   return (
     <div className="min-h-screen bg-white text-sm">
-      {/* Header */}
-      <header className="bg-[#e9f0f8] px-8 py-4 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 relative">
-            <Image src="/logo.png" alt="logo" fill style={{ objectFit: "contain" }} />
-          </div>
-          <h1 className="text-xl font-extrabold">HHCLOSET</h1>
-        </div>
-        <div className="font-medium text-sm">Xin chào NTK: XYZ</div>
-      </header>
 
-      {/* Navbar */}
-      <nav className="bg-[#001f87] text-white text-sm font-medium px-8 py-2">
-        <ul className="flex gap-6 flex-wrap">
-          <li>TRANG CHỦ</li>
-          <li>CÁ NHÂN</li>
-          <li>MUA BÁN</li>
-          <li>CÀI ĐẶT</li>
-          <li>ĐĂNG XUẤT</li>
-        </ul>
-      </nav>
 
       {/* Layout */}
       <div className="max-w-[1300px] mx-auto px-8 py-8 grid grid-cols-[220px_1fr_420px] gap-6">
@@ -101,9 +81,7 @@ export default function NTK_BDashboard() {
           <ul className="space-y-2">
             <li className="px-3 py-2 rounded-md bg-[#001f87] text-white">Tổng quan</li>
             <li className="px-3 py-2 hover:bg-gray-100 cursor-pointer">Sản phẩm</li>
-            <li className="px-3 py-2 hover:bg-gray-100 cursor-pointer">Đơn hàng</li>
             <li className="px-3 py-2 hover:bg-gray-100 cursor-pointer">Báo cáo</li>
-            <li className="px-3 py-2 hover:bg-gray-100 cursor-pointer">Cài đặt</li>
           </ul>
         </aside>
 
