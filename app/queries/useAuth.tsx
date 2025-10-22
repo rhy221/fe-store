@@ -1,0 +1,27 @@
+import authAction from "@/apiRequests/auth";
+import { useMutation, useQuery } from "@tanstack/react-query";
+
+export const useLoginMutation = () => {
+  return useMutation({
+    mutationFn: authAction.login,
+  });
+};
+
+export const useRegisterMutation = () => {
+  return useMutation({
+    mutationFn: authAction.register,
+  });
+};
+
+export const useLogoutMutation = () => {
+  return useMutation({
+    mutationFn: authAction.logout,
+  });
+};
+
+export const useGetMeQuery = () => {
+  return useQuery({
+    queryKey: ["account-me"],
+    queryFn: authAction.getMe,
+  });
+};

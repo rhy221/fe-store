@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
+
 import { Bruno_Ace_SC, Geist, Geist_Mono, Montserrat, Press_Start_2P } from "next/font/google";
+
 import "./globals.css";
-import NavBar from "@/components/NavBar";
-import Footer from "@/components/Footer";
+import TanstackProvider from "@/providers/tanstack-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -46,16 +47,8 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable} ${montserrat.variable} ${pressStart.variable} ${brunoAce.variable} antialiased flex`}>
         <main className="w-full">
           <div className="relative">
-            <div className="sticky top-0 z-1">
-              <NavBar />
-            </div>
-            <div className="relative z-0">
-              {children}
-            </div>
-            <div>
-              <Footer/>
-            </div>
-            
+             {" "}
+            <TanstackProvider>{children}</TanstackProvider>
           </div>
         </main>
       </body>

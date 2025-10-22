@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import Header from "../../../components/Header";
-import { Button } from "../../../components/ui/button";
+import Header from "../../../../components/Header";
+import { Button } from "../../../../components/ui/button";
 import {
   ProductActionModal,
   SalesTypeModal,
@@ -10,7 +10,7 @@ import {
   Product,
   DirectSaleData,
   AuctionSetupData,
-} from "../../../components/product-modals";
+} from "../../../../components/product-modals";
 
 // ==================== API DATA INTERFACES ====================
 // Interfaces are now imported from components/product-modals/types.ts

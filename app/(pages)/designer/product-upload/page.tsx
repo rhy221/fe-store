@@ -1,11 +1,11 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import Header from "../../../components/Header";
-import UploadBox from "../../../components/UploadBox";
-import { Input } from "../../../components/ui/input";
-import { Textarea } from "../../../components/ui/textarea";
-import { Select } from "../../../components/ui/select";
-import { Button } from "../../../components/ui/button";
+import Header from "../../../../components/Header";
+import UploadBox from "../../../../components/UploadBox";
+import { Input } from "../../../../components/ui/input";
+import { Textarea } from "../../../../components/ui/textarea";
+import { Select } from "../../../../components/ui/select";
+import { Button } from "../../../../components/ui/button";
 
 interface FormValues {
   tenMau: string;
