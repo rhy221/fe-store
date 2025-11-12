@@ -3,13 +3,15 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { useRegisterMutation } from "@/app/queries/useAuth";
 import { RegisterBody, RegisterBodyType } from "@/app/schema/auth.schema";
+import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
+import { useRegisterStore } from "@/stores/useRegisterStore";
 
 export default function RegisterForm() {
   const registerMutation = useRegisterMutation();
@@ -20,30 +22,30 @@ export default function RegisterForm() {
     defaultValues: {
       email: "",
       password: "",
-      confirmPassword: "",
     },
   });
 
-  const handleSubmit = async (data: RegisterBodyType) => {
-    if (registerMutation.isPending) return;
+  const onSubmit = async (data: RegisterBodyType) => {
+    if (registerMutation.isPending) return; 
     try {
       const result = await registerMutation.mutateAsync(data);
       console.log(result);
       toast("Success", {
         description: "Please login to your account",
       });
-
-      router.push("/login");
+      useRegisterStore.getState().setEmail(data.email);
+      router.push("/signup/notify");
     } catch (error) {
       console.log(error);
     }
   };
 
   return (
-    <Form {...form}>
       <form
+        id="register-form"
+        method="post"
         className={cn("flex flex-col gap-6")}
-        onSubmit={form.handleSubmit(handleSubmit)}
+        onSubmit={form.handleSubmit(onSubmit)}
       >
         <div className="flex flex-col items-center gap-2 text-center">
           <h1 className="text-2xl font-bold">Register to your account</h1>
@@ -51,7 +53,60 @@ export default function RegisterForm() {
             Create an account to start chatting with your friends and family.
           </p>
         </div>
-        <div className="grid gap-6">
+        <FieldGroup>
+          <Controller
+            name="email"
+            control={form.control}
+            render={({field, fieldState}) => (
+              <Field data-invalid={fieldState.invalid}>
+                <FieldLabel htmlFor={field.name}>
+                  Email
+                </FieldLabel>
+                <Input
+                  {...field}
+                  id={field.name}
+                  type="email"
+                  placeholder="m@example.com"
+                  required>
+                </Input>
+                {fieldState.invalid && (
+                    <FieldError errors={[fieldState.error]} />
+                  )}
+              </Field>
+            )}>
+          </Controller>
+        </FieldGroup>
+
+        <FieldGroup>
+          <Controller
+            name="password"
+            control={form.control}
+            render={({field, fieldState}) => (
+              <Field data-invalid={fieldState.invalid}>
+                <FieldLabel htmlFor={field.name}>
+                  Password
+                </FieldLabel>
+                <Input
+                  {...field}
+                  id={field.name}
+                  type="password"
+                  required>
+                </Input>
+                {fieldState.invalid && (
+                    <FieldError errors={[fieldState.error]} />
+                  )}
+              </Field>
+            )}>
+          </Controller>
+        </FieldGroup>
+        <Field>
+          <Button type="submit" className="w-full">
+            Register
+          </Button>
+        </Field>
+        
+
+        {/* <div className="grid gap-6">
           <div className="grid gap-3">
             <FormField
               control={form.control}
@@ -147,8 +202,8 @@ export default function RegisterForm() {
               />
             </svg>
             <span className="ml-2">Continue with Google</span>
-          </Button>
-        </div>
+          </Button> 
+        </div> */}
         <div className="text-center text-sm">
           <p className="text-muted-foreground text-sm">
             Already have an account?{" "}
@@ -168,6 +223,5 @@ export default function RegisterForm() {
           </p>
         </div>
       </form>
-    </Form>
   );
 }

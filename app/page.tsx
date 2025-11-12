@@ -1,3 +1,5 @@
+import Footer from "@/components/Footer";
+import NavBar from "@/components/NavBar";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import Image from "next/image";
@@ -7,7 +9,7 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="flex flex-col bg-background">
+    <div className="flex flex-col relative bg-background">
       {/* <div className="grid grid-cols-[2fr_1fr] w-full ">
         <div className="grid grid-cols-[4fr_1fr]">
           <div className="flex flex-col justify-around size-full text-4xl font-bruno-ace">
@@ -29,6 +31,10 @@ export default function Home() {
           <img src="/background2.jpg" alt="bg" className="w-full h-auto" />
         </div>
       </div> */}
+
+      <div className="sticky w-full">
+        <NavBar />
+      </div>
 
       <div className="relative w-full h-[100vh] overflow-hidden bg-[url('/home_bg3.png')] bg-no-repeat bg-cover bg-center ">
         
@@ -59,7 +65,11 @@ export default function Home() {
             <p>
               <span className="font-bold">Step into a new realm of fashion</span>  with our collection of digital clothes, where imagination meets technology
             </p>
-          </div>
+      </div>
+
+      <div className="w-full">
+        <Footer />
+      </div>
 
       {/* <div className=" py-20 px-40">
         <div className="mb-8">

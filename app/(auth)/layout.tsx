@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 
 import { Store } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 export default function RootLayout({
@@ -23,12 +24,8 @@ export default function RootLayout({
           {children}
         </div>
       </div>
-      <div className="bg-muted relative hidden lg:block">
-        <img
-          src="/images/auth.svg"
-          alt="Image"
-          className="absolute inset-0 h-full w-full object-cover "
-        />
+      <div className="bg-blue-700 relative hidden lg:block">
+          {/* <Image src="/logo.png" alt="logo" height={500} width={500} className="w-[80%] h-auto"/> */}
       </div>
     </div>
   );

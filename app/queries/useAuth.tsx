@@ -13,6 +13,12 @@ export const useRegisterMutation = () => {
   });
 };
 
+export const useSendVerifyEmailMutation = () => {
+  return useMutation({
+    mutationFn: authAction.sendVerifyEmail,
+  })
+}
+
 export const useLogoutMutation = () => {
   return useMutation({
     mutationFn: authAction.logout,

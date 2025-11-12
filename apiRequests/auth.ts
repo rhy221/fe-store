@@ -4,17 +4,24 @@ import {
   LogoutResType,
   RegisterBodyType,
   RegisterResType,
+  SendVerifyEmailBodyType,
+  
 } from "@/app/schema/auth.schema";
 import http from "@/lib/http";
 
 const authAction = {
   login: async (body: LoginBodyType) => {
-    const response = await http.post<LoginResType>("/user/login", body);
+    const response = await http.post<LoginResType>("/auth/login", body);
     return response.data;
   },
 
   register: async (body: RegisterBodyType) => {
-    const response = await http.post<RegisterResType>("/users", body);
+    const response = await http.post<RegisterResType>("/auth/register", body);
+    return response.data;
+  },
+
+  sendVerifyEmail: async (body: SendVerifyEmailBodyType) => {
+    const response = await http.post<SendVerifyEmailBodyType>("/auth/send-verifyemail", body);
     return response.data;
   },
 

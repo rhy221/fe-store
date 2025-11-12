@@ -3,13 +3,14 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { LoginBody, LoginBodyType } from "@/app/schema/auth.schema";
 import { useLoginMutation } from "@/app/queries/useAuth";
+import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 
 export default function LoginForm() {
   const loginMutation = useLoginMutation();
@@ -18,7 +19,7 @@ export default function LoginForm() {
   const form = useForm<LoginBodyType>({
     resolver: zodResolver(LoginBody),
     defaultValues: {
-      username: "",
+      email: "",
       password: "",
     },
   });
@@ -31,9 +32,9 @@ export default function LoginForm() {
       toast("Success", {
         description: "Login successful!",
       });
-      localStorage.setItem("access_token", result.accessToken);
-      localStorage.setItem("refresh_token", result.refreshToken);
-      localStorage.setItem("user", JSON.stringify(result));
+      // localStorage.setItem("access_token", result.accessToken);
+      // localStorage.setItem("refresh_token", result.refreshToken);
+      // localStorage.setItem("user", JSON.stringify(result));
       router.push("/user");
     } catch (error) {
       console.log(error);
@@ -41,7 +42,6 @@ export default function LoginForm() {
   };
 
   return (
-    <Form {...form}>
       <form
         className={cn("flex flex-col gap-6")}
         onSubmit={form.handleSubmit(handleSubmit, (err) => {
@@ -54,86 +54,59 @@ export default function LoginForm() {
             Enter your email below to login to your account
           </p>
         </div>
-        <div className="grid gap-6">
-          <div className="grid gap-3">
-            <FormField
-              control={form.control}
-              name="username"
-              render={({ field }) => (
-                <FormItem>
-                  <div className="grid gap-2">
-                    <Label className="font-bold" htmlFor="username">
-                      Username
-                    </Label>
-                    <Input
-                      id="username"
-                      type="text"
-                      placeholder="username"
-                      required
-                      {...field}
-                    />
-                    <FormMessage />
-                  </div>
-                </FormItem>
-              )}
-            />
-          </div>
+        
+         <FieldGroup>
+          <Controller
+            name="email"
+            control={form.control}
+            render={({field, fieldState}) => (
+              <Field data-invalid={fieldState.invalid}>
+                <FieldLabel htmlFor={field.name}>
+                  Email
+                </FieldLabel>
+                <Input
+                  {...field}
+                  id={field.name}
+                  type="email"
+                  placeholder="m@example.com"
+                  required>
+                </Input>
+                {fieldState.invalid && (
+                    <FieldError errors={[fieldState.error]} />
+                  )}
+              </Field>
+            )}>
+          </Controller>
+        </FieldGroup>
 
-          <div className="grid gap-3">
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <div className="grid gap-2">
-                    <div className="flex items-center">
-                      <Label className="font-bold" htmlFor="password">
-                        Password
-                      </Label>
-                      <a
-                        href="#"
-                        className="ml-auto text-sm underline-offset-4 hover:underline"
-                      >
-                        Forgot your password?
-                      </a>
-                    </div>
-                    <Input id="password" type="password" required {...field} />
-                    <FormMessage />
-                  </div>
-                </FormItem>
-              )}
-            />
-          </div>
+        <FieldGroup>
+          <Controller
+            name="password"
+            control={form.control}
+            render={({field, fieldState}) => (
+              <Field data-invalid={fieldState.invalid}>
+                <FieldLabel htmlFor={field.name}>
+                  Password
+                </FieldLabel>
+                <Input
+                  {...field}
+                  id={field.name}
+                  type="password"
+                  required>
+                </Input>
+                {fieldState.invalid && (
+                    <FieldError errors={[fieldState.error]} />
+                  )}
+              </Field>
+            )}>
+          </Controller>
+        </FieldGroup>
+        <Field>
           <Button type="submit" className="w-full">
             Login
           </Button>
-          <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
-            <span className="bg-background text-muted-foreground relative z-10 px-2">
-              Or continue with
-            </span>
-          </div>
-          <Button variant="outline" className="w-full">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <rect
-                x="2"
-                y="4"
-                width="20"
-                height="16"
-                rx="2"
-                stroke="currentColor"
-                strokeWidth="2"
-                fill="none"
-              />
-              <path
-                d="M22 7L12 14L2 7"
-                stroke="currentColor"
-                strokeWidth="2"
-                fill="none"
-              />
-            </svg>
-            Login with Email
-          </Button>
-        </div>
+        </Field>
+        
         <div className="text-center text-sm">
           Don&apos;t have an account?{" "}
           <a href="/signup" className="underline underline-offset-4">
@@ -141,6 +114,5 @@ export default function LoginForm() {
           </a>
         </div>
       </form>
-    </Form>
   );
 }

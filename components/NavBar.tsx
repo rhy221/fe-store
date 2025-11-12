@@ -76,14 +76,19 @@ const NavBar = () => {
 
             {/*Auth*/}
             <div className='flex items-center gap-2'>
-                {/* <Button variant={'outline'}>Đăng nhập</Button>
-                <Button>Đăng ký</Button> */}
-                <Link href="user/buyer/profile">
+                <Link href="/login">
+                    <Button variant={'outline'}>Đăng nhập</Button>
+                </Link>
+                <Link href="/signup">
+                     <Button>Đăng ký</Button> 
+
+                </Link>
+                {/* <Link href="user/buyer/profile">
                    <Avatar className="">
                         <AvatarImage src="/pathetic.jpg"/>
                         <AvatarFallback>Avatar</AvatarFallback>
                     </Avatar> 
-                </Link>
+                </Link> */}
                 
             </div>
         </div>
